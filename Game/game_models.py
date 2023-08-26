@@ -38,10 +38,6 @@ LETTER_VALUES = {"A": 1,
 
 
 
-
-
-
-
 class BagTiles:
     def __init__(self):
           
@@ -95,52 +91,3 @@ class BagTiles:
         return tiles
     def put(self, tiles):
         self.bag.extend(tiles)
-
-# class BagTiles:
-
-#     def __init__(self):
-#         self.bag = []
-#         self.initialize_bag()
-
-    
-#         self.bag = []
-#         self.initialize_bag
-
-       
-#     def initialize_bag(self):
-#         for letter, value in LETTER_VALUES.items():
-#             self.add_to_bag(Tile(letter, value), self.get_initial_quantity(letter))
-
-#         random.shuffle(self.bag)
-
-    
-#         self.add_to_bag(Tile(letter, value), self.get_initial_quantity(letter))
-
-#         random.shuffle
-
-#         self.add_to_bag(Tile)
-
-#     def add_to_bag(self, tile, quantity):
-#         for _ in range(quantity):
-#             self.bag.append(tile)
-#     def get_initial_quantity(self, letter):
-#         return LETTER_VALUES.get(letter, 0)
-#     def take(self, count):
-#         tiles = []
-#         for _ in range(count):
-#             tiles.append(self.bag.pop())
-    
-#             tiles.append(self.bag.pop())
-   
-#         return tiles
-# # Crear la bolsa de fichas
-# bag = BagTiles()
-
-# # Barajar las fichas
-# random.shuffle(bag.bag)
-
-# # Repartir 7 fichas
-# hand = bag.take(
-# 7)
-# for tile in hand:
-#     print(f"Letter: {tile.letter}, Value: {tile.value}")
