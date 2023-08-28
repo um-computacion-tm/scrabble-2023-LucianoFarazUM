@@ -36,8 +36,6 @@ LETTER_VALUES = {"A": 1,
                  "#": 0,
 }
 
-
-
 class BagTiles:
     def __init__(self):
           

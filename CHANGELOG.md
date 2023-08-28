@@ -28,7 +28,7 @@ The format is based on [Keep a Changelog]
 
 
 
-## [1.1.0] - 2023-08-26
+## [1.1.1] - 2023-08-26
 
 
 
@@ -36,4 +36,14 @@ The format is based on [Keep a Changelog]
 
 - Introduced a new class `player`.
 
+
+
+
+## [1.1.2] - 2023-08-28
+
+
+
+### Added
+
+- Introduced a new class `cell`.
 

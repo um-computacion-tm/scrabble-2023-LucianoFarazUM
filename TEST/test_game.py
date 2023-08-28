@@ -34,8 +34,7 @@ class TestBagTiles(unittest.TestCase):
          )
           self.assertEqual(
              len(tiles),
-             2,
-         )
+             2,   )
 
     def test_put(self):
          bag = BagTiles()
