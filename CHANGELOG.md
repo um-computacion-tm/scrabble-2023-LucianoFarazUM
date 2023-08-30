@@ -46,4 +46,4 @@ The format is based on [Keep a Changelog]
 ### Added
 
 - Introduced a new class `cell`.
-
+- introduced a new clas `board`.
