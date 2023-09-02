@@ -7,4 +7,3 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/728f1dd7830778391407/maintainability)](https://codeclimate.com/github/um-computacion-tm/scrabble-2023-LucianoFarazUM/maintainability)
 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/728f1dd7830778391407/test_coverage)](https://codeclimate.com/github/um-computacion-tm/scrabble-2023-LucianoFarazUM/test_coverage)
-
