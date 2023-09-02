@@ -53,3 +53,9 @@ The format is based on [Keep a Changelog]
 ### Added
 
 - Introduced a exceptions in te class bagtile.
+
+## [1.1.4] - 2023-09-02
+
+### Changed 
+
+- modify exceptions 
