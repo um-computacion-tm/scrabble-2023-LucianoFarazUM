@@ -9,7 +9,7 @@ class Tile:
     def __init__(self, letter, value):
         self.letter = letter
         self.value = value
-
+##########################################################################
 LETTER_VALUES = {"A": 1,
                  "B": 3,
                  "C": 3,
@@ -42,20 +42,21 @@ LETTER_VALUES = {"A": 1,
 }
 
 class BagTiles:
+    
     def __init__(self):
         self.bag = []
         self.initialize_bag()
 
     def add_to_bag(self, tile, quantity):
         if len(self.bag) + quantity > 100:
-            raise exception0("Cannot add more tiles to the bag, limit exceeded.")
+            raise exception0("no se pueden agregar mas fichas.")
+        if len(self.bag) + quantity < 0:
+            raise exception0("no pueden haber menos fichas en la bolsa.")
         for i in range(quantity):
             self.bag.append(tile)
 
 
-
     def initialize_bag(self):
-        
         global LETTER_VALUES
         self.add_to_bag(Tile("A", LETTER_VALUES), 12)
         self.add_to_bag(Tile("B", LETTER_VALUES), 2)
@@ -86,12 +87,15 @@ class BagTiles:
         self.add_to_bag(Tile("RR", LETTER_VALUES),1)
         self.add_to_bag(Tile("Ñ", LETTER_VALUES) ,1)
         self.add_to_bag(Tile("#", LETTER_VALUES), 2)
-        
         random.shuffle(self.bag)
- 
-    def take_exception100(self, count):
+
+    def take(self, count):
         if len(self.bag) < count:
-            raise exception100("Trying to take more tiles than available")
+            raise exception100("intentando toomar mas fichas de las disponibles")
+        tiles = []
+        for _ in range(count):
+            tiles.append(self.bag.pop())
+        return tiles
 
     def put(self, tiles):
         self.bag.extend(tiles)

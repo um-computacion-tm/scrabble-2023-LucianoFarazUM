@@ -47,3 +47,9 @@ The format is based on [Keep a Changelog]
 
 - Introduced a new class `cell`.
 - introduced a new clas `board`.
+
+## [1.1.3] - 2023-08-29
+
+### Added
+
+- Introduced a exceptions in te class bagtile.
