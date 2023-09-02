@@ -57,6 +57,7 @@ class BagTiles:
 
 
     def initialize_bag(self):
+        
         global LETTER_VALUES
         self.add_to_bag(Tile("A", LETTER_VALUES), 12)
         self.add_to_bag(Tile("B", LETTER_VALUES), 2)
