@@ -29,24 +29,60 @@ class TestCell(unittest.TestCase):
 
         self.assertEqual(cell.letter, letter)
 
-    def test_cell_value(self):
-        cell = Cell(multiplier=3, multiplier_type='letter')
-        letter = Tile(letter='a', value=1)
-        cell.add_letter(letter=letter)
 
-        self.assertEqual(
-            cell.calculate_value(),
-            3,
-        )
+    def calculate_cell_value(self, multiplier, multiplier_type, letter, value):
+        cell = Cell(multiplier=multiplier, multiplier_type=multiplier_type)
+        tile = Tile(letter=letter, value=value)
+        cell.add_letter(letter=tile)
+        return cell.calculate_value()
+
+    def test_cell_value(self):
+        self.assertEqual(self.calculate_cell_value(3, 'letter', 'a', 1), 3)
 
     def test_cell_multiplier_word(self):
-        cell = Cell(multiplier=2, multiplier_type='word')
-        letter = Tile(letter='p', value=3)
-        cell.add_letter(letter=letter)
+        self.assertEqual(self.calculate_cell_value(2, 'word', 'p', 3), 3)
 
-        self.assertEqual(
-            cell.calculate_value(),
-            3,
-        )
+    # def test_cell_value(self):
+    #     cell = Cell(multiplier=3, multiplier_type='letter')
+    #     letter = Tile(letter='a', value=1)
+    #     cell.add_letter(letter=letter)
+
+    #     self.assertEqual(
+    #         self.calculate_cell_value(cell),
+    #         3,
+    #     )
+
+    # def test_cell_multiplier_word(self):
+    #     cell = Cell(multiplier=2, multiplier_type='word')
+    #     letter = Tile(letter='p', value=3)
+    #     cell.add_letter(letter=letter)
+
+    #     self.assertEqual(
+    #         self.calculate_cell_value(cell),
+    #         3,
+    #     )
+
+    # def calculate_cell_value(self, cell):
+    #     return cell.calculate_value()
+
+    # def test_cell_value(self):
+    #     cell = Cell(multiplier=3, multiplier_type='letter')
+    #     letter = Tile(letter='a', value=1)
+    #     cell.add_letter(letter=letter)
+
+    #     self.assertEqual(
+    #         cell.calculate_value(),
+    #         3,
+    #     )
+
+    # def test_cell_multiplier_word(self):
+    #     cell = Cell(multiplier=2, multiplier_type='word')
+    #     letter = Tile(letter='p', value=3)
+    #     cell.add_letter(letter=letter)
+
+    #     self.assertEqual(
+    #         cell.calculate_value(),
+    #         3,
+    #     )
 if __name__ == '__main__':
     unittest.main()
