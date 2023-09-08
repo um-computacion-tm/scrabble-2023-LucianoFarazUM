@@ -92,7 +92,7 @@ class BagTiles:
 
     def take(self, count):
         if len(self.bag) < count:
-            raise exception100("intentando toomar mas fichas de las disponibles")
+            raise exception100("intentando tomar mas fichas de las disponibles")
         tiles = []
         for _ in range(count):
             tiles.append(self.bag.pop())
