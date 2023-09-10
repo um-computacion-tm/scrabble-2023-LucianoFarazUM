@@ -76,4 +76,4 @@ The format is based on [Keep a Changelog]
 
 ### Added
 
-- Introduced a new class `CalculateValues`.
+- Introduced a new class `CalculateValue`.
