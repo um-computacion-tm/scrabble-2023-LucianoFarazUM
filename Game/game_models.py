@@ -9,7 +9,9 @@ class Tile:
     def __init__(self, letter, value):
         self.letter = letter
         self.value = value
-##########################################################################
+
+def add_letter(self, letter: Tile):
+        self.letter = letter
 LETTER_VALUES = {"A": 1,
                  "B": 3,
                  "C": 3,

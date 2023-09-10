@@ -59,3 +59,21 @@ The format is based on [Keep a Changelog]
 ### Changed 
 
 - modify exceptions 
+
+
+## [1.1.5] - 2023-09-08
+
+
+
+### Added
+
+- Introduced a new class `ScrableGame`.
+
+
+## [1.1.6] - 2023-09-09
+
+
+
+### Added
+
+- Introduced a new class `CalculateValues`.
