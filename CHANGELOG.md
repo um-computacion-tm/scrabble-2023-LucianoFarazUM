@@ -78,4 +78,13 @@ The format is based on [Keep a Changelog]
 
 - Introduced a new class `CalculateValue`.
 ### Added
-- introduced a funcion `CalculateWordValues`
+- introduced a funcionality `CalculateWordValues`
+
+
+## [1.1.7] - 2023-09-011
+
+
+
+### Changed
+
+-modified a new funcionality `CalculateWordValues`.
