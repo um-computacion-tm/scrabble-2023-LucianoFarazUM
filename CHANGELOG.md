@@ -77,3 +77,5 @@ The format is based on [Keep a Changelog]
 ### Added
 
 - Introduced a new class `CalculateValue`.
+### Added
+- introduced a funcion `CalculateWordValues`
