@@ -16,3 +16,5 @@ class CalculateValue:
                     letter_value = cell.letter.value
                     total_value += letter_value * cell.multiplier  # Multiplicamos el valor de la letra por el multiplicador
             return total_value
+    
+    

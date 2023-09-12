@@ -87,4 +87,14 @@ The format is based on [Keep a Changelog]
 
 ### Changed
 
--modified a new funcionality `CalculateWordValues`.
+-modified a funcionality `CalculateWordValues`.
+
+
+## [1.1.8] - 2023-09-012
+
+
+
+### Changed
+
+-modified a  funcionality `CalculateWordValues`.
+-reorganised  `initialize_bag` function to fix codeclimate issues
