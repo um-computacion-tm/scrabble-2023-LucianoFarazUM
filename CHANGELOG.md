@@ -98,3 +98,8 @@ The format is based on [Keep a Changelog]
 
 -modified a  funcionality `CalculateWordValues`.
 -reorganised  `initialize_bag` function to fix codeclimate issues
+
+## [1.1.9]
+
+## Add 
+- added `next_turn`function to manage players turns
