@@ -1,5 +1,5 @@
 import unittest
-from Game.scrabble import ScrabbleGame
+from game.scrabble import ScrabbleGame
 
 
 

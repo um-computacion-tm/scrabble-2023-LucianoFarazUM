@@ -1,8 +1,8 @@
 import unittest
-from Game.calculator_value import CalculateValue
-from Game.cell import Cell
-from Game.game_models import Tile
-from Game.game_models import Tile,LETTER_VALUES
+from game.calculator_value import CalculateValue
+from game.cell import Cell
+from game.game_models import Tile
+from game.game_models import Tile,LETTER_VALUES
 
 class TestCalculateValue(unittest.TestCase):
     def test_simple(self):

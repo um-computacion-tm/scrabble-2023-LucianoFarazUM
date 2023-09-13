@@ -1,4 +1,4 @@
-from Game.cell import Cell
+from game.cell import Cell
 
 
 class Board:
