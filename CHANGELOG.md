@@ -59,3 +59,47 @@ The format is based on [Keep a Changelog]
 ### Changed 
 
 - modify exceptions 
+
+
+## [1.1.5] - 2023-09-08
+
+
+
+### Added
+
+- Introduced a new class `ScrableGame`.
+
+
+## [1.1.6] - 2023-09-09
+
+
+
+### Added
+
+- Introduced a new class `CalculateValue`.
+### Added
+- introduced a funcionality `CalculateWordValues`
+
+
+## [1.1.7] - 2023-09-011
+
+
+
+### Changed
+
+-modified a funcionality `CalculateWordValues`.
+
+
+## [1.1.8] - 2023-09-012
+
+
+
+### Changed
+
+-modified a  funcionality `CalculateWordValues`.
+-reorganised  `initialize_bag` function to fix codeclimate issues
+
+## [1.1.9]
+
+## Add 
+- added `next_turn`function to manage players turns

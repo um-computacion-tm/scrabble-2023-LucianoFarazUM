@@ -40,7 +40,7 @@ class TestBagTiles(unittest.TestCase):
         bag = BagTiles()
         with self.assertRaises(exception100):
             bag.take(101)  # Intentar tomar 101 fichas cuando solo hay 100 disponibles
-
+        self.assertEqual(len(bag.bag), 100)  # Asegurarse de que la bolsa no cambió después de la excepción
 
 if __name__ == '__main__':
     unittest.main()
