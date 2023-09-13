@@ -1,6 +1,6 @@
 
 import unittest
-from Game.game_models import (
+from game.game_models import (
     Tile, BagTiles, exception100, exception0,
 )
 from unittest.mock import patch
