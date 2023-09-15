@@ -103,3 +103,14 @@ The format is based on [Keep a Changelog]
 
 ## Add 
 - added `next_turn`function to manage players turns
+
+
+## [1.1.10] - 2023-09-011
+
+### Added
+
+- introduced a funcionality `validate_word_inside_board`
+
+
+
+
