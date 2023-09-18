@@ -81,7 +81,7 @@ The format is based on [Keep a Changelog]
 - introduced a funcionality `CalculateWordValues`
 
 
-## [1.1.7] - 2023-09-011
+## [1.1.7] - 2023-09-11
 
 
 
@@ -90,7 +90,7 @@ The format is based on [Keep a Changelog]
 -modified a funcionality `CalculateWordValues`.
 
 
-## [1.1.8] - 2023-09-012
+## [1.1.8] - 2023-09-12
 
 
 
@@ -105,7 +105,7 @@ The format is based on [Keep a Changelog]
 - added `next_turn`function to manage players turns
 
 
-## [1.1.10] - 2023-09-011
+## [1.1.10] - 2023-09-15
 
 ### Added
 
@@ -113,4 +113,10 @@ The format is based on [Keep a Changelog]
 
 
 
+
+## [1.2.1] - 2023-09-18
+
+### Added
+
+- introduced a funcionality `empty and not empty`
 
