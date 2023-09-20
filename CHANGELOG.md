@@ -128,3 +128,9 @@ The format is based on [Keep a Changelog]
 
 - introduced a funcionality: checking the words on the board `place_word_on_board and  validate_word_place_board`
 
+
+## [1.2.3] - 2023-09-20
+
+## Added
+
+- test board 

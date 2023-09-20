@@ -11,11 +11,12 @@ class Board:
         len_word = len(word)
         max_x, max_y = self.SIZE, self.SIZE
 
-        if orientation == "H" and x + len_word > max_x:
-            return False
-
-        if orientation == "V" and y + len_word > max_y:
-            return False
+        if orientation == "H":
+            if x < 0 or x + len_word > max_x or y < 0 or y >= max_y:
+                return False
+        else:
+            if x < 0 or x >= max_x or y < 0 or y + len_word > max_y:
+                return False
 
         for i in range(len_word):
             cell = self.grid[x + i][y] if orientation == "H" else self.grid[x][y + i]
