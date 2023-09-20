@@ -99,9 +99,6 @@ class BagTiles:
 
 
     
-
-
-
     def take(self, count):
         if len(self.bag) < count:
             raise exception100("intentando tomar mas fichas de las disponibles")

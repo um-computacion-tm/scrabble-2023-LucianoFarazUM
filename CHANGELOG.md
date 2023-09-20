@@ -120,3 +120,11 @@ The format is based on [Keep a Changelog]
 
 - introduced a funcionality `empty and not empty`
 
+
+
+## [1.2.2] - 2023-09-19
+
+### Added
+
+- introduced a funcionality: checking the words on the board `place_word_on_board and  validate_word_place_board`
+

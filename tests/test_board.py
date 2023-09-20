@@ -1,7 +1,6 @@
 import unittest
 from game.board import Board
 from game.game_models import Tile
-
 class TestBoard(unittest.TestCase):
     def test_init(self):
         board = Board()
@@ -19,32 +18,58 @@ class TestBoard(unittest.TestCase):
         word = "Facultad"
         location = (5, 4)
         orientation = "H"
-
         word_is_valid = board.validate_word_inside_board(word, location, orientation)
-
-        assert word_is_valid == True
+        self.assertEqual(word_is_valid, True)
     
     def test_word_out_of_board(self):
         board = Board()
         word = "Facultad"
         location = (14, 4)
         orientation = "H"
-
         word_is_valid = board.validate_word_inside_board(word, location, orientation)
-
-        assert word_is_valid == False
-
+        self.assertEqual(word_is_valid, False)
 
     def test_board_is_empty(self):
         board = Board()
-        assert board.is_empty == True
+        self.assertEqual(board.is_empty, True)
 
     def test_board_is_not_empty(self):
         board = Board()
         board.grid[7][7].add_letter(Tile('C', 1))
-        assert board.is_empty == False
+        self.assertEqual(board.is_empty, False)
 
+    def test_place_word_empty_board_horizontal_fine(self):
+        board = Board()
+        word = "Facultad"
+        location = (7, 4)
+        orientation = "H"
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        self.assertEqual(word_is_valid, True)
 
+    def test_place_word_empty_board_horizontal_wrong(self):
+        board = Board()
+        word = "Facultad"
+        location = (15, 15)
+        orientation = "H"
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        self.assertEqual(word_is_valid, False)
+    
+    def test_place_word_empty_board_vertical_fine(self):
+        board = Board()
+        word = "Facultad"
+        location = (4, 7)
+        orientation = "V"
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        self.assertEqual(word_is_valid, True)
+
+    
+    def test_place_word_empty_board_vertical_wrong(self):
+        board = Board()
+        word = "Facultad"
+        location = (10, 10)
+        orientation = "V"
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        assert word_is_valid == False    
 
 if __name__ == '__main__':
     unittest.main()

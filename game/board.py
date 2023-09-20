@@ -1,69 +1,50 @@
 from game.cell import Cell
-from game.game_models import Tile
 
 class Board:
+    SIZE = 15
+
     def __init__(self):
-        self.grid = [[Cell(1, "", "") for _ in range(15)] for _ in range(15)]
+        self.grid = [[Cell() for _ in range(self.SIZE)] for _ in range(self.SIZE)]
 
-    @staticmethod
-    def calculate_word_value(word: [Cell]) -> int:
-        value: int = 0
-        multiplier_word = None
-        for cell in word:
-            value = value + cell.calculate_value()
-            if cell.multiplier_type == "word" and cell.active:
-                multiplier_word = cell.multiplier
-        if multiplier_word:
-            value = value * multiplier_word
-        return value
-
-    
     def validate_word_inside_board(self, word, location, orientation):
-        position_x = location[0]
-        position_y = location[1]
+        x, y = location
         len_word = len(word)
+        max_x, max_y = self.SIZE, self.SIZE
 
-        # Primero, verifica si la palabra cabe en el tablero según la orientación.
-        if orientation == "H":
-            if position_x + len_word > 15:
-                return False
-        else:
-            if position_y + len_word > 15:
-                return False
+        if orientation == "H" and x + len_word > max_x:
+            return False
 
-        # Luego, verifica si hay letras en las celdas que intersectan con la palabra.
-        for i in range(len(word)):
-            if orientation == "H":
-                if (
-                    self.grid[position_x + i][position_y].letter != ""
-                    and self.grid[position_x + i][position_y].letter != word[i]
-                ):
-                    return False
-            else:
-                if (
-                    self.grid[position_x][position_y + i].letter != ""
-                    and self.grid[position_x][position_y + i].letter != word[i]
-                ):
-                    return False
+        if orientation == "V" and y + len_word > max_y:
+            return False
+
+        for i in range(len_word):
+            cell = self.grid[x + i][y] if orientation == "H" else self.grid[x][y + i]
+            if cell.letter and cell.letter != word[i]:
+                return False
 
         return True
+
     def place_word_on_board(self, word, location, orientation):
-        position_x = location[0]
-        position_y = location[1]
-        if orientation == "H":
-            for i in range(len(word)):
-                self.grid[position_x + i][position_y].add_letter(Tile(word[i], 1))
-        else:
-            for i in range(len(word)):
-                self.grid[position_x][position_y + i].add_letter(Tile(word[i], 1))
+        x, y = location
+        for i, letter in enumerate(word):
+            cell = self.grid[x + i][y] if orientation == "H" else self.grid[x][y + i]
+            cell.letter = letter
+
+    def validate_word_place_board(self, word, location, orientation):
+        if not self.validate_word_inside_board(word, location, orientation):
+            return False
+
+        x, y = location
+        for i, letter in enumerate(word):
+            cell = self.grid[x + i][y] if orientation == "H" else self.grid[x][y + i]
+            if cell.letter == letter:
+                return False
+
+        return True
 
     @property
     def is_empty(self):
-        for row in self.grid:
-            for cell in row:
-                if cell.letter != "":
-                    return False
-        return True
+        return all(not cell.letter for row in self.grid for cell in row)
 
     def clear_board(self):
-        self.grid = [[Cell(1, "", "") for _ in range(15)] for _ in range(15)]
+        self.grid = [[Cell() for _ in range(self.SIZE)] for _ in range(self.SIZE)]
