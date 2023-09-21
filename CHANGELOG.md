@@ -134,3 +134,14 @@ The format is based on [Keep a Changelog]
 ## Added
 
 - test board 
+
+
+
+## [1.2.4] - 2023-09-21
+
+### Added
+
+- introduced a funcionality: `valid_word and can_place_word`
+- modified a  class  `player`
+
+
