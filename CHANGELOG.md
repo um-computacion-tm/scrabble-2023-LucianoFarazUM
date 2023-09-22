@@ -145,3 +145,9 @@ The format is based on [Keep a Changelog]
 - modified a  class  `player`
 
 
+## [1.2.4] - 2023-09-22
+
+### Added
+
+- introduced a funcionality: `word_exists`
+- modified function  `can_place_word and valid_word`
