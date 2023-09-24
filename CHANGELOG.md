@@ -151,3 +151,11 @@ The format is based on [Keep a Changelog]
 
 - introduced a funcionality: `word_exists`
 - modified function  `can_place_word and valid_word`
+
+
+
+## [1.2.5] - 2023-09-23
+
+### Added
+
+- Introduced a new class main.
