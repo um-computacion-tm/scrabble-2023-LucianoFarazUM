@@ -1,3 +1,7 @@
+## [1.2.7] - 2023-10-3
+
+### Added
+- Introduced a new class dictionary.
 
 ## [1.2.6] - 2023-09-23
 
