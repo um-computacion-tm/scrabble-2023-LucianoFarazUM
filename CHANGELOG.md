@@ -1,3 +1,9 @@
+
+## [1.2.8] - 2023-10-04
+
+### Added
+- modified  `calculate_Word_Value` method.
+
 ## [1.2.7] - 2023-10-3
 
 ### Added

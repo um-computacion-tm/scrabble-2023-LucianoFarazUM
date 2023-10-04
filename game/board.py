@@ -11,7 +11,7 @@ class Board:
         len_word = len(word)
         max_x, max_y = self.SIZE, self.SIZE
 
-        if orientation == "H":
+        if orientation == "H" :
             if x < 0 or x + len_word > max_x or y < 0 or y >= max_y:
                 return False
         else:
@@ -49,3 +49,5 @@ class Board:
 
     def clear_board(self):
         self.grid = [[Cell() for _ in range(self.SIZE)] for _ in range(self.SIZE)]
+
+#############################
