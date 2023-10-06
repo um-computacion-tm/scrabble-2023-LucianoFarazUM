@@ -1,7 +1,7 @@
 
 ## [1.2.8] - 2023-10-04
 
-### Added
+### Changed
 - modified  `calculate_Word_Value` method.
 
 ## [1.2.7] - 2023-10-3
@@ -18,12 +18,14 @@
 
 ### Added
 - introduced a funcionality: `word_exists`
+### Changed
 - modified function  `can_place_word and valid_word`
 
 ## [1.2.4] - 2023-09-21
 
 ### Added
 - introduced a funcionality: `valid_word and can_place_word`
+### Changed
 - modified a  class  `player`
 
 ## [1.2.3] - 2023-09-20
