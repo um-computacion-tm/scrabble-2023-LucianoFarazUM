@@ -1,7 +1,9 @@
 from pyrae import dle
 
 class DictionaryConnectionError(Exception):
-    pass
+    ...
+
+dle.set_log_level(log_level='CRITICAL')
 
 def validate_word(word):
     search = dle.search_by_word(word=word)
