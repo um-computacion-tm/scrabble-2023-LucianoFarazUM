@@ -1,4 +1,12 @@
 
+## [1.2.9] - 2023-10-07
+
+### Changed
+- modified `main` .
+### Added
+- add method  in main `get_player_count`
+add method in main  `show_board` .
+-- add method in scrabble  `get_current_player` . 
 ## [1.2.8] - 2023-10-04
 
 ### Changed
