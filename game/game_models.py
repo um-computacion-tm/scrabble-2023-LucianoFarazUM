@@ -10,8 +10,12 @@ class Tile:
         self.letter = letter
         self.value = value
 
-def add_letter(self, letter: Tile):
-        self.letter = letter
+    def add_letter(self, letter):
+        self.letter = letter.letter
+        self.value = letter.value
+
+    def __repr__(self):
+        return f"{self.letter}:{self.value}"
 LETTER_VALUES = {"A": 1,
                  "B": 3,
                  "C": 3,

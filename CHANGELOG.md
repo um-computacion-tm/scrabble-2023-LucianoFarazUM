@@ -1,4 +1,9 @@
 
+# [1.2.10] - 2023-10-08
+
+### Changed
+- modified  class `tile`. add repr.
+
 ## [1.2.9] - 2023-10-07
 
 ### Changed

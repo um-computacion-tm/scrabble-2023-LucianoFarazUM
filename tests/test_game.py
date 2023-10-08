@@ -6,6 +6,25 @@ from game.game_models import (
 from unittest.mock import patch
 
 
+class TestTile(unittest.TestCase):
+    def test_tile_initialization(self):
+        tile = Tile('A', 1)
+        self.assertEqual(tile.letter, 'A')
+        self.assertEqual(tile.value, 1)
+
+    def test_add_letter(self):
+        tile = Tile('A', 1)
+        new_tile = Tile('B', 3)
+        tile.add_letter(new_tile)
+        self.assertEqual(tile.letter, 'B')
+        self.assertEqual(tile.value, 3)
+
+    def test_tile_repr(self):
+        tile = Tile('A', 1)
+        expected_repr = "A:1"
+        self.assertEqual(repr(tile), expected_repr)
+
+
 class TestBagTiles(unittest.TestCase):
     @patch('random.shuffle')
     def test_bag_tiles(self, patch_shuffle):
