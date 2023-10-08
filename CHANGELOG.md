@@ -1,9 +1,10 @@
 
 # [1.2.10] - 2023-10-08
-
+### Added
+- repr cell.
+- reper tile
 ### Changed
-- modified  class `tile`. add repr.
-
+- modified  class `tile`.
 ## [1.2.9] - 2023-10-07
 
 ### Changed

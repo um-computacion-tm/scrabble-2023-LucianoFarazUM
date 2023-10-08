@@ -19,3 +19,11 @@ class Cell:
             return self.letter.value * self.multiplier
         else:
             return self.letter.value
+        
+    def __repr__(self):
+        if self.letter:
+            return repr(self.letter)
+        if self.multiplier > 1:
+            return f'{"W" if self.multiplier_type == "word" else "L"}x{self.multiplier}'
+        else:
+            return '   '
