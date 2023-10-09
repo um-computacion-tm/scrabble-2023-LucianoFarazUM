@@ -1,5 +1,10 @@
 
-# [1.2.10] - 2023-10-08
+## [1.3.1] - 2023-10-09
+### Added
+- method `put_word` in scrabble.
+### Changed
+- modified  class `scrabble`.
+##[1.2.10] - 2023-10-08
 ### Added
 - method `play` in scrabble.
 - repr cell.

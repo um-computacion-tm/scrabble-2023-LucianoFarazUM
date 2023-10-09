@@ -3,7 +3,6 @@ from game.player import Player
 from game.game_models import BagTiles
 from game.calculator_value import CalculateValue
 
-
 class ScrabbleGame:
     def __init__(self, players_count: int):
         self.board = Board()
@@ -57,12 +56,19 @@ class ScrabbleGame:
         user_input = input(f"¿Es '{word}' una palabra válida? (Sí/No): ").strip().lower()
         return user_input == "si"
 
+    def put_word(self, word: str, location: tuple, orientation: str) -> bool:
+        if self.can_place_word(word, location, orientation):
+            self.board.place_word_on_board(word, location, orientation)
+            return True
+        else:
+            return False
 
-
-    
-    def play(self, word, location, orientation):
-        self.valid_word(word, location, orientation)
-        words = self.board.put_word(word, location, orientation)
-        total = self.calculatorValue.calculate_Word_Value(words)
-        self.players[self.current_player].score += total
-        self.next_turn()
+    def play(self, word: str, location: tuple, orientation: str) -> bool:
+        if self.put_word(word, location, orientation):
+            total = self.calculatorValue.calculate_Word_Value(word)  # Calcular el valor de la palabra
+            self.players[self.current_player].score += total
+            self.next_turn()
+            return True
+        else:
+            print(f"La palabra '{word}' no es válida en la ubicación especificada.")
+            return False

@@ -2,6 +2,7 @@ import unittest
 from game.scrabble import ScrabbleGame  
 from game.game_models import Tile
 from unittest.mock import patch
+from game.player import Player
 
 
 class TestScrabbleGame(unittest.TestCase):
@@ -13,6 +14,9 @@ class TestScrabbleGame(unittest.TestCase):
             3,
         )
         self.assertIsNotNone(scrabble_game.bag_tiles)
+    def setUp(self):
+        self.game = ScrabbleGame(players_count=2)
+        self.player = Player(None)    
     
     def test_next_turn_when_game_is_starting(self):
         
