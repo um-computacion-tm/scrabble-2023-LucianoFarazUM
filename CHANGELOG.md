@@ -1,6 +1,7 @@
 
 # [1.2.10] - 2023-10-08
 ### Added
+- method `play` in scrabble.
 - repr cell.
 - reper tile
 ### Changed

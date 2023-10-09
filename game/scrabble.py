@@ -3,10 +3,12 @@ from game.player import Player
 from game.game_models import BagTiles
 from game.calculator_value import CalculateValue
 
+
 class ScrabbleGame:
     def __init__(self, players_count: int):
         self.board = Board()
         self.bag_tiles = BagTiles()
+        self.calculatorValue = CalculateValue()
         self.players = []
         for _ in range(players_count):
             self.players.append(Player(bag_tiles=self.bag_tiles))
@@ -58,9 +60,9 @@ class ScrabbleGame:
 
 
     
-    # def play(self, word, location, orientation):
-    #     self.valid_word(word, location, orientation)
-    #     words = self.board.put_word(word, location, orientation)
-    #     total = self.calculator_value.calculate_word_value(words)
-    #     self.players[self.current_player].score += total
-    #     self.next_turn()
+    def play(self, word, location, orientation):
+        self.valid_word(word, location, orientation)
+        words = self.board.put_word(word, location, orientation)
+        total = self.calculatorValue.calculate_Word_Value(words)
+        self.players[self.current_player].score += total
+        self.next_turn()

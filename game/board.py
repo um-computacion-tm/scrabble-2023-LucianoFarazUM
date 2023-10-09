@@ -117,4 +117,10 @@ class Board:
     @property
     def is_empty(self):
         return all(not cell.letter for row in self.grid for cell in row)
+    
+    ###############################################
+
+
+
+    
 
