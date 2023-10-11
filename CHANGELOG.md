@@ -1,24 +1,28 @@
 
+## [1.3.2] - 2023-10-011
+### Added
+- add function `get_inputs`
+
 ## [1.3.1] - 2023-10-09
 ### Added
-- method `put_word` in scrabble.
+- add method `put_word` in scrabble.
 ### Changed
 - modified  class `scrabble`.
-##[1.2.10] - 2023-10-08
+## [1.2.10] - 2023-10-08
 ### Added
-- method `play` in scrabble.
-- repr cell.
-- reper tile
+- add method `play` in scrabble.
+- add repr cell.
+- add reper tile
 ### Changed
 - modified  class `tile`.
 ## [1.2.9] - 2023-10-07
 
 ### Changed
-- modified `main` .
+- modified file main .
 ### Added
-- add method  in main `get_player_count`
-add method in main  `show_board` .
--- add method in scrabble  `get_current_player` . 
+- add fnction  in main `get_player_count`
+- add function in main  `show_board` .
+- add method in scrabble  `get_current_player` . 
 ## [1.2.8] - 2023-10-04
 
 ### Changed

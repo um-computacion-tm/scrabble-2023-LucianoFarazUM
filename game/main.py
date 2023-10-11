@@ -26,14 +26,14 @@ def show_player(self):
         return ScrabbleGame.get_current_player()
 
 
-    # def get_inputs():
-    #     word = input('Palabra: ')
-    #     coords_str = input('Coordenadas (fila, columna): ')
-    #     coords_str = coords_str.replace('(', '').replace(')', '')  # Eliminar paréntesis
-    #     coords_str = coords_str.strip()  # Eliminar espacios en blanco adicionales
-    #     coords = tuple(map(int, coords_str.split(',')))
-    #     orientation = input('Orientación (H/V): ')
-    #     return word, coords, orientation
+def get_inputs():
+    word = input('Palabra: ')
+    coords_str = input('Coordenadas (fila, columna): ')
+    coords_str = coords_str.replace('(', '').replace(')', '')  # Eliminar paréntesis
+    coords_str = coords_str.strip()  # Eliminar espacios en blanco adicionales
+    coords = tuple(map(int, coords_str.split(',')))
+    orientation = input('Orientación (H/V): ')
+    return word, coords, orientation
 
 
 # def main():
