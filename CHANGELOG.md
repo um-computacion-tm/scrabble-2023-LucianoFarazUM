@@ -1,4 +1,10 @@
 
+## [1.3.4] - 2023-10-14
+### Added
+- add method `change_word` in scrabble.
+### Changed
+- changed method `put_word`
+
 ## [1.3.3] - 2023-10-12
 ### Added
 - add function `main`in main.

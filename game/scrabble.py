@@ -59,6 +59,22 @@ class ScrabbleGame:
     def put_word(self, word: str, location: tuple, orientation: str) -> bool:
         if self.can_place_word(word, location, orientation):
             self.board.place_word_on_board(word, location, orientation)
+            self.next_turn()  # Cambiar al siguiente turno después de colocar la palabra.
+            return True
+        else:
+            return False
+
+    def change_word(self, tiles_to_change: list) -> bool:
+        """
+        Cambia las fichas especificadas en tiles_to_change por nuevas fichas del pool.
+        :param tiles_to_change: Lista de índices de las fichas a cambiar en la mano del jugador.
+        :return: True si el cambio se realiza correctamente, False si no es posible.
+        """
+        if len(tiles_to_change) > 0 and self.pool.has_enough_tiles(len(tiles_to_change)):
+            new_tiles = self.pool.draw_tiles(len(tiles_to_change))
+            for index, tile_index in enumerate(tiles_to_change):
+                self.player_hand.replace_tile(tile_index, new_tiles[index])
+            self.next_turn()  # Cambiar al siguiente turno después de cambiar las fichas.
             return True
         else:
             return False
