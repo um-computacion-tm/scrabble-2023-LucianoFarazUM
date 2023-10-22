@@ -70,8 +70,31 @@ from game.cell import Cell
 
 class Board:
     SIZE = 15
+    def __init__(self):
+            board_multipliers = [
+                ["3W", None, None, "2L", None, None, None, "3W", None, None, None, "2L", None, None, "3W"],
+                [None, "2W", None, None, None, "3L", None, None, None, "3L", None, None, None, "2W", None],  
+                [None, None, "2W", None, None, None, "2L", None, "2L", None, None, None, "2W", None, None], 
+                ["2L", None, None, "2W", None, None, None, "2L", None, None, None, "2W", None, None, "2L"],  
+                [None, None, None, None, "2W", None, None, None, None, None, "2W", None, None, None, None],  
+                [None, "3L", None, None, None, "3L", None, None, None, "3L", None, None, None, "3L", None],  
+                [None, None, "2L", None, None, None, "2L", None, "2L", None, None, None, "2L", None, None],  
+                ["3W", None, None, "2L", None, None, None, "2W", None, None, None, "2L", None, None, "3W"],  
+                [None, None, "2L", None, None, None, "2L", None, "2L", None, None, None, "2L", None, None],  
+                [None, "3L", None, None, None, "3L", None, None, None, "3L", None, None, None, "3L", None],  
+                [None, None, None, None, "2W", None, None, None, None, None, "2W", None, None, None, None],  
+                ["2L", None, None, "2W", None, None, None, "2L", None, None, None, "2W", None, None, "2L"],  
+                [None, None, "2W", None, None, None, "2L", None, "2L", None, None, None, "2W", None, None],  
+                [None, "2W", None, None, None, "3L", None, None, None, "3L", None, None, None, "2W", None],  
+                ["3W", None, None, "2L", None, None, None, "3W", None, None, None, "2L", None, None, "3W"] 
+            ]
+            self.grid = [
+                [self.put_multipliers(multiplier) for multiplier in row]
+                for row in board_multipliers
+            ]
 
     def __init__(self):
+        
         self.grid = [[Cell() for _ in range(self.SIZE)] for _ in range(self.SIZE)]
 
     def clear_board(self):
@@ -80,19 +103,21 @@ class Board:
     def validate_word_inside_board(self, word, location, orientation):
         x, y = location
         len_word = len(word)
-        max_x, max_y = self.SIZE, self.SIZE
 
         if orientation == "H":
-            if x < 0 or x + len_word > max_x or y < 0 or y >= max_y:
+            if x < 0 or x + len_word > self.SIZE or y < 0 or y >= self.SIZE:
                 return False
         else:
-            if x < 0 or x >= max_x or y < 0 or y + len_word > max_y:
+            if x < 0 or x >= self.SIZE or y < 0 or y + len_word > self.SIZE:
                 return False
 
         for i in range(len_word):
-            cell = self.grid[x + i][y] if orientation == "H" else self.grid[x][y + i]
-            if cell.letter and cell.letter != word[i]:
-                return False
+            if orientation == "H":
+                if y + i >= self.SIZE or self.grid[x][y + i].letter:
+                    return False
+            else:
+                if x + i >= self.SIZE or self.grid[x + i][y].letter:
+                    return False
 
         return True
 
@@ -117,16 +142,11 @@ class Board:
     @property
     def is_empty(self):
         return all(not cell.letter for row in self.grid for cell in row)
-    
-
-
-    def display_board(self):
-        print("Tablero de Scrabble:")
-        print("  0     1     2     3     4     5     6     7     8     9    10    11    12    13    14  ")
-
-        for row in range(self.SIZE):
-            for col in range(self.SIZE):
-                print(self.grid[row][col], end="")
+        
+    def display(self):
+        for x in range(self.SIZE):
+            for y in range(self.SIZE):
+                print(self.grid[x][y], end=' ')
             print()
     ############################################
 

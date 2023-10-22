@@ -17,6 +17,11 @@ class ScrabbleGame:
     def get_current_player(self):
             return self.players[self.current_player]
     
+    
+    def playing(self):
+        return True
+    
+    
 
     def next_turn(self):
         if self.current_player is None:
