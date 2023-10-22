@@ -118,7 +118,17 @@ class Board:
     def is_empty(self):
         return all(not cell.letter for row in self.grid for cell in row)
     
-    ###############################################
+
+
+    def display_board(self):
+        print("Tablero de Scrabble:")
+        print("  0     1     2     3     4     5     6     7     8     9    10    11    12    13    14  ")
+
+        for row in range(self.SIZE):
+            for col in range(self.SIZE):
+                print(self.grid[row][col], end="")
+            print()
+    ############################################
 
 
 

@@ -90,6 +90,7 @@
 import unittest
 from game.board import Board
 from game.game_models import Tile
+
 class TestBoard(unittest.TestCase):
     def test_init(self):
         board = Board()
@@ -182,6 +183,44 @@ class TestBoard(unittest.TestCase):
         word_is_valid = board.validate_word_place_board(word, location, orientation)
         self.assertEqual(word_is_valid, False)
 
+    def test_display_board(self):
+        self.board = Board
+        # Redirigir la salida estándar para capturar la impresión en un string
+        import sys
+        from io import StringIO
+        saved_stdout = sys.stdout
+        sys.stdout = StringIO()
+
+        # Llamar a la función display_board
+        self.board.display_board()
+
+        # Restaurar la salida estándar
+        sys.stdout = saved_stdout
+
+        # Obtener la salida de la función display_board
+        displayed_board = sys.stdout.getvalue().strip()
+
+        # Comparar la salida con el tablero esperado
+        expected_board = (
+            "Tablero de Scrabble:\n"
+            "  0     1     2     3     4     5     6     7     8     9    10    11    12    13    14 "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  " 
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+            "   .    .    .    .    .    .    .    .    .    .    .    .    .    .    .     .     .  "
+        )
+
+        self.assertEqual(displayed_board, expected_board)
 
 
 if __name__ == '__main__':

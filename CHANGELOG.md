@@ -1,4 +1,8 @@
 
+
+## [1.3.5] - 2023-10-21
+### Added
+- add function `displey_board` in board.
 ## [1.3.4] - 2023-10-14
 ### Added
 - add method `change_word` in scrabble.
