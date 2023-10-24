@@ -70,28 +70,28 @@ from game.cell import Cell
 
 class Board:
     SIZE = 15
-    def __init__(self):
-            board_multipliers = [
-                ["3W", None, None, "2L", None, None, None, "3W", None, None, None, "2L", None, None, "3W"],
-                [None, "2W", None, None, None, "3L", None, None, None, "3L", None, None, None, "2W", None],  
-                [None, None, "2W", None, None, None, "2L", None, "2L", None, None, None, "2W", None, None], 
-                ["2L", None, None, "2W", None, None, None, "2L", None, None, None, "2W", None, None, "2L"],  
-                [None, None, None, None, "2W", None, None, None, None, None, "2W", None, None, None, None],  
-                [None, "3L", None, None, None, "3L", None, None, None, "3L", None, None, None, "3L", None],  
-                [None, None, "2L", None, None, None, "2L", None, "2L", None, None, None, "2L", None, None],  
-                ["3W", None, None, "2L", None, None, None, "2W", None, None, None, "2L", None, None, "3W"],  
-                [None, None, "2L", None, None, None, "2L", None, "2L", None, None, None, "2L", None, None],  
-                [None, "3L", None, None, None, "3L", None, None, None, "3L", None, None, None, "3L", None],  
-                [None, None, None, None, "2W", None, None, None, None, None, "2W", None, None, None, None],  
-                ["2L", None, None, "2W", None, None, None, "2L", None, None, None, "2W", None, None, "2L"],  
-                [None, None, "2W", None, None, None, "2L", None, "2L", None, None, None, "2W", None, None],  
-                [None, "2W", None, None, None, "3L", None, None, None, "3L", None, None, None, "2W", None],  
-                ["3W", None, None, "2L", None, None, None, "3W", None, None, None, "2L", None, None, "3W"] 
-            ]
-            self.grid = [
-                [self.put_multipliers(multiplier) for multiplier in row]
-                for row in board_multipliers
-            ]
+    # def __init__(self):
+    #         board_multipliers = [
+    #             ["3W", None, None, "2L", None, None, None, "3W", None, None, None, "2L", None, None, "3W"],
+    #             [None, "2W", None, None, None, "3L", None, None, None, "3L", None, None, None, "2W", None],  
+    #             [None, None, "2W", None, None, None, "2L", None, "2L", None, None, None, "2W", None, None], 
+    #             ["2L", None, None, "2W", None, None, None, "2L", None, None, None, "2W", None, None, "2L"],  
+    #             [None, None, None, None, "2W", None, None, None, None, None, "2W", None, None, None, None],  
+    #             [None, "3L", None, None, None, "3L", None, None, None, "3L", None, None, None, "3L", None],  
+    #             [None, None, "2L", None, None, None, "2L", None, "2L", None, None, None, "2L", None, None],  
+    #             ["3W", None, None, "2L", None, None, None, "2W", None, None, None, "2L", None, None, "3W"],  
+    #             [None, None, "2L", None, None, None, "2L", None, "2L", None, None, None, "2L", None, None],  
+    #             [None, "3L", None, None, None, "3L", None, None, None, "3L", None, None, None, "3L", None],  
+    #             [None, None, None, None, "2W", None, None, None, None, None, "2W", None, None, None, None],  
+    #             ["2L", None, None, "2W", None, None, None, "2L", None, None, None, "2W", None, None, "2L"],  
+    #             [None, None, "2W", None, None, None, "2L", None, "2L", None, None, None, "2W", None, None],  
+    #             [None, "2W", None, None, None, "3L", None, None, None, "3L", None, None, None, "2W", None],  
+    #             ["3W", None, None, "2L", None, None, None, "3W", None, None, None, "2L", None, None, "3W"] 
+    #         ]
+    #         self.grid = [
+    #             [self.put_multipliers(multiplier) for multiplier in row]
+    #             for row in board_multipliers
+    #         ]
 
     def __init__(self):
         
