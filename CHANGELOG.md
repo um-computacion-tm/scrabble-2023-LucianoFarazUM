@@ -1,8 +1,20 @@
 
+## [1.3.7] - 2023-10-25
+### Added
+-add dockerfile.
+
+## [1.3.7] - 2023-10-24
+### Chamged
+- modified main.
+
+## [1.3.6] - 2023-10-22
+### Added
+-add visual board.
 
 ## [1.3.5] - 2023-10-21
 ### Added
 - add function `displey_board` in board.
+
 ## [1.3.4] - 2023-10-14
 ### Added
 - add method `change_word` in scrabble.
@@ -22,6 +34,7 @@
 - add method `put_word` in scrabble.
 ### Changed
 - modified  class `scrabble`.
+
 ## [1.2.10] - 2023-10-08
 ### Added
 - add method `play` in scrabble.
@@ -37,6 +50,7 @@
 - add fnction  in main `get_player_count`
 - add function in main  `show_board` .
 - add method in scrabble  `get_current_player` . 
+
 ## [1.2.8] - 2023-10-04
 
 ### Changed
