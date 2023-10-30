@@ -10,25 +10,21 @@ class ScrabbleGame:
         self.calculatorValue = CalculateValue()
         self.players = []
         for _ in range(players_count):
-            self.players.append(Player(bag_tiles=self.bag_tiles))
+            self.players.append(Player())
         
-        self.current_player = None
+        self.current_player = 0
     
     def get_current_player(self):
-            return self.players[self.current_player]
+        return self.players[self.current_player]
     
     
     def playing(self):
         return True
     
     
-
     def next_turn(self):
-        if self.current_player is None:
-            self.current_player = self.players[0]
-        else:
-            index = (self.players.index(self.current_player) + 1) % len(self.players)
-            self.current_player = self.players[index]
+        self.current_player = (self.current_player + 1) % len(self.players)
+
 
     def valid_word(self, word: str, player: Player) -> bool:
         player_letters = player.tiles
@@ -93,3 +89,30 @@ class ScrabbleGame:
         else:
             print(f"La palabra '{word}' no es válida en la ubicación especificada.")
             return False
+
+    
+    
+
+    def create_tile_list(self, word, bag_tiles):
+        tile_list = []
+        for letter in word:
+            tile = bag_tiles.get_tile(letter)
+            tile_list.append(tile)
+        return tile_list
+    
+
+    def show_score(self):
+        print("Su puntaje es :",self.players[self.current_player].score)
+
+    def display_tiles(self, player):
+        print
+        for tile in player.rack:
+            print(f"[{tile.letter}, {tile.value}]", end=' ')
+        print()
+
+
+    def end_game(self):
+        if len(self.bag_tiles.tiles) == 0:
+                return True
+        return False
+    

@@ -52,6 +52,7 @@ class BagTiles:
     def __init__(self):
         self.bag = []
         self.initialize_bag()
+        
 
     def add_to_bag(self, tile, quantity):
         if len(self.bag) + quantity > 100:
@@ -101,8 +102,9 @@ class BagTiles:
         self.add_to_bag(Tile("#", LETTER_VALUES), 2)
         self.add_to_bag(Tile("LL",LETTER_VALUES), 1)
 
-
+        
     
+
     def take(self, count):
         if len(self.bag) < count:
             raise exception100("intentando tomar mas fichas de las disponibles")
