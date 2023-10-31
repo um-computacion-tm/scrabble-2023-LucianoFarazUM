@@ -12,7 +12,7 @@ class Player:
         self.nickname = input('Ingrese su nombre/apodo: ')
         
     def display_rack(self):
-        rack_strings = [str(tile) for tile in self.rack[:1]]  # Convierte objetos Tile a cadenas y muestra solo las primeras 7 fichas
+        rack_strings = [str(tile) for tile in self.rack]  # Convierte objetos Tile a cadenas
         print("Sus fichas son: " + ", ".join(rack_strings))
 
 

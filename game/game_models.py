@@ -10,10 +10,7 @@ class Tile:
         self.letter = letter
         self.value = value
 
-    def add_letter(self, letter):
-        self.letter = letter.letter
-        self.value = letter.value
-
+    
     def __repr__(self):
         return f"{self.letter}:{self.value}"
 LETTER_VALUES = {"A": 1,
@@ -46,7 +43,36 @@ LETTER_VALUES = {"A": 1,
                  "RR": 8,
                  "#": 0,
 }
-
+LETTER_QUANTITY = {"A": 12,
+                 "B": 2,
+                 "C": 4,
+                 "D": 5,
+                 "E": 12,
+                 "F": 1,
+                 "G": 2,
+                 "H": 2,
+                 "I": 6,
+                 "J": 1,
+                 "L": 4,
+                 "M": 2,
+                 "N": 5,
+                 "Ñ": 1,
+                 "O": 9,
+                 "P": 2,
+                 "Q": 1,
+                 "R": 5,
+                 "S": 6,
+                 "T": 4,
+                 "U": 5,
+                 "V": 1,
+                 "X":  1,
+                 "Y":  1,
+                 "Z": 1,
+                 "LL": 1,
+                 "CH": 1,
+                 "RR": 1,
+                 "#": 2,
+}
 class BagTiles:
     
     def __init__(self):
@@ -64,44 +90,12 @@ class BagTiles:
 
 
     def initialize_bag(self):
-        
-        global LETTER_VALUES
-        
-        self.add_to_bag(Tile("B", LETTER_VALUES), 2)
-        self.add_to_bag(Tile("C", LETTER_VALUES), 4)
-        self.add_to_bag(Tile("D", LETTER_VALUES), 5)
-        self.add_to_bag(Tile("F", LETTER_VALUES), 1)
-        self.add_to_bag(Tile("G", LETTER_VALUES), 2)
-        self.add_to_bag(Tile("H", LETTER_VALUES), 2)
-        self.add_to_bag(Tile("J", LETTER_VALUES), 1)
-        self.add_to_bag(Tile("L", LETTER_VALUES), 4)
-        self.add_to_bag(Tile("M", LETTER_VALUES), 2)
-        self.add_to_bag(Tile("N", LETTER_VALUES), 5)
-        self.add_to_bag(Tile("P", LETTER_VALUES), 2)
-        self.add_to_bag(Tile("Q", LETTER_VALUES), 1)
-        self.add_to_bag(Tile("R", LETTER_VALUES), 5)
-        self.add_to_bag(Tile("S", LETTER_VALUES), 6)
-        self.add_to_bag(Tile("T", LETTER_VALUES), 4)
-        self.add_to_bag(Tile("V", LETTER_VALUES), 1)
-        self.add_to_bag(Tile("X", LETTER_VALUES), 1)
-        self.add_to_bag(Tile("Y", LETTER_VALUES), 1)
-        self.add_to_bag(Tile("Z", LETTER_VALUES), 1)
-        self.add_vocals()
-        self.add_specials()
-        random.shuffle(self.bag)
-    def add_vocals(self):
-        self.add_to_bag(Tile("A", LETTER_VALUES), 12)
-        self.add_to_bag(Tile("E", LETTER_VALUES), 12)
-        self.add_to_bag(Tile("I", LETTER_VALUES), 6)
-        self.add_to_bag(Tile("O", LETTER_VALUES), 9)
-        self.add_to_bag(Tile("U", LETTER_VALUES), 5)
-    def add_specials(self):
-        self.add_to_bag(Tile("CH", LETTER_VALUES),1)
-        self.add_to_bag(Tile("RR", LETTER_VALUES),1)
-        self.add_to_bag(Tile("Ñ", LETTER_VALUES) ,1)
-        self.add_to_bag(Tile("#", LETTER_VALUES), 2)
-        self.add_to_bag(Tile("LL",LETTER_VALUES), 1)
+        global LETTER_VALUES, LETTER_QUANTITY
 
+        for letter, value in LETTER_VALUES.items():
+            quantity = LETTER_QUANTITY.get(letter, 0)
+            self.add_to_bag(Tile(letter, value), quantity)
+        random.shuffle(self.bag)    
         
     
 

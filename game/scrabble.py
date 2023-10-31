@@ -27,7 +27,7 @@ class ScrabbleGame:
 
 
     def valid_word(self, word: str, player: Player) -> bool:
-        player_letters = player.tiles
+        player_letters = player.rack
         hand_letters = list(player_letters)
         for letter in word:
             if letter in hand_letters:
@@ -53,9 +53,7 @@ class ScrabbleGame:
                     return False
 
             return True
-    def word_exists(self, word: str) -> bool:
-        user_input = input(f"¿Es '{word}' una palabra válida? (Sí/No): ").strip().lower()
-        return user_input == "si"
+    
 
     def put_word(self, word: str, location: tuple, orientation: str) -> bool:
         if self.can_place_word(word, location, orientation):
@@ -65,20 +63,7 @@ class ScrabbleGame:
         else:
             return False
 
-    def change_word(self, tiles_to_change: list) -> bool:
-        """
-        Cambia las fichas especificadas en tiles_to_change por nuevas fichas del pool.
-        :param tiles_to_change: Lista de índices de las fichas a cambiar en la mano del jugador.
-        :return: True si el cambio se realiza correctamente, False si no es posible.
-        """
-        if len(tiles_to_change) > 0 and self.pool.has_enough_tiles(len(tiles_to_change)):
-            new_tiles = self.pool.draw_tiles(len(tiles_to_change))
-            for index, tile_index in enumerate(tiles_to_change):
-                self.player_hand.replace_tile(tile_index, new_tiles[index])
-            self.next_turn()  # Cambiar al siguiente turno después de cambiar las fichas.
-            return True
-        else:
-            return False
+    
 
     def play(self, word: str, location: tuple, orientation: str) -> bool:
         if self.put_word(word, location, orientation):
@@ -112,7 +97,16 @@ class ScrabbleGame:
 
 
     def end_game(self):
-        if len(self.bag_tiles.tiles) == 0:
-                return True
-        return False
+        if len(self.bag_tiles.bag) == 0:
+            return True
+        else:
+            while True:
+                choice = input("¿Quieres terminar el juego? (Sí/No): ").strip().lower()
+                if choice == "si":
+                    return True
+                elif choice == "no":
+                    return False
+                else:
+                    print("Por favor, ingresa 'Sí' o 'No'.")
+
     

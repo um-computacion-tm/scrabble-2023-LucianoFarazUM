@@ -118,12 +118,18 @@
 from game.scrabble import ScrabbleGame
 from game.board import Board
 from game.player import Player
-from game.game_models import BagTiles
+from game.game_models import BagTiles, Tile
+import random
+
+
 
 def main():
     bagtiles = BagTiles()  # Crear una instancia de BagTiles
-    player = Player(bagtiles)
+    player = Player()
     board = Board() 
+
+
+
     print("Bienvenido!")
     while True:
         try:
@@ -168,14 +174,15 @@ def main():
         elif option == '2':
             scrabbleGame.show_score()
         elif option == '3':
-            print('Sus fichas son: ')
-            
-
+            player.display_rack()
         elif option == '4':
             put_word(scrabbleGame)
         elif option == '5':
-            bagtiles.put(player.tiles)
-            bagtiles.take(len(player.tiles))
+            bagtiles.put(player.rack)
+            random.shuffle(bagtiles.bag)
+            player.rack = bagtiles.take(len(player.rack))
+            rack_strings = [str(tile) for tile in player.rack]   
+            print("Sus nuevas fichas son : " + ", ".join(rack_strings))
         elif option == '6':
             scrabbleGame.next_turn()
         elif option == '7':   
@@ -208,6 +215,7 @@ def show_board(board):
             '| ' +
             ' '.join([repr(cell) for cell in row])
         )
+
         
 def get_player_count():
     while True:

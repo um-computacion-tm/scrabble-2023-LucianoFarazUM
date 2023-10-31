@@ -1,10 +1,25 @@
 
+## [1.3.9] - 2023-10-31
+### Changed
+- modified rack in player 
+- modified prueba
+### Added 
+-add end_game in srcabble 
+
+## [1.3.8] - 2023-10-28
+### Changed
+- modified main, scrabble and board 
+### Added
+- add multipliers in board 
+- add archive main testing "prueba"
+- add rack in player
+
 ## [1.3.7] - 2023-10-25
 ### Added
 -add dockerfile.
 
 ## [1.3.7] - 2023-10-24
-### Chamged
+### Changed
 - modified main.
 
 ## [1.3.6] - 2023-10-22

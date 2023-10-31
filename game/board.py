@@ -2,6 +2,8 @@ from game.cell import Cell
 from game.game_models import Tile
 from game.player import Player
 
+
+
 TRIPLE_WORD_SCORE = ((0,0), (7, 0), (14,0), (0, 7), (14, 7), (0, 14), (7, 14), (14,14))
 DOUBLE_WORD_SCORE = ((1,1), (2,2), (3,3), (4,4), (1, 13), (2, 12), (3, 11), (4, 10), (13, 1), (12, 2),
                     (11, 3), (10, 4), (13,13), (12, 12), (11,11), (10,10))
@@ -29,7 +31,7 @@ class Board:
         ]
 
         self.set_multipliers()
-        
+
     def clear_board(self):
         for row in self.grid:
             for cell in row:
@@ -51,77 +53,98 @@ class Board:
             self.set_cell_multiplier(coordinate, "letter", 2)
     
 
-    def validate_word_horizontal(self, word, location):
-        x, y = location
-        if x < 0 or x >= 15 or y < 0 or y + len(word) > 15:
-            return False
-        return True
+    # def validate_word_horizontal(self, word, location):
+    #     x, y = location
+    #     if x < 0 or x >= 15 or y < 0 or y + len(word) > 15:
+    #         return False
+    #     return True
 
-    def validate_word_vertical(self, word, location):
-        x, y = location
-        if x < 0 or x + len(word) > 15 or y < 0 or y >= 15:
-            return False
-        return True
+    # def validate_word_vertical(self, word, location):
+    #     x, y = location
+    #     if x < 0 or x + len(word) > 15 or y < 0 or y >= 15:
+    #         return False
+    #     return True
 
-    def validate_word_inside_board(self, word, location, orientation):
-        if orientation.lower() == "h":
-            return self.validate_word_horizontal(word, location)
-        elif orientation.lower() == "v":
-            return self.validate_word_vertical(word, location)
-        else:
-            raise SoloVoHParaLaOrientacion(Exception)
+    # def validate_word_inside_board(self, word, location, orientation):
+    #     if orientation.lower() == "h":
+    #         return self.validate_word_horizontal(word, location)
+    #     elif orientation.lower() == "v":
+    #         return self.validate_word_vertical(word, location)
+    #     else:
+    #         raise SoloVoHParaLaOrientacion(Exception)
         
     def is_empty(self):
         if self.grid[7][7].letter is None:
             return True
         return False
 
-    def can_place_word_at_start(self, x, y, word):
-        if y <= 7 < y + len(word) and x == 7:
-            return True
-        return False
+    # def can_place_word_at_start(self, x, y, word):
+    #     if y <= 7 < y + len(word) and x == 7:
+    #         return True
+    #     return False
 
-    def validate_word_place_board_horizontal(self, word, location):
-        x, y = location
-        if not self.validate_word_inside_board(word, location, "H"):
-            raise WordOutOfBoard(Exception)
-        if self.is_empty():
-            return self.can_place_word_at_start(x, y, word)
-        elif self.is_empty() is False:
-            for i in range(len(word)):
-                if self.grid[x][y + i].letter is not None:
-                    if self.grid[x][y + i].letter.letter != word[i]:
-                        return False
-            return True
+    # def validate_word_place_board_horizontal(self, word, location):
+    #     x, y = location
+    #     if not self.validate_word_inside_board(word, location, "H"):
+    #         raise WordOutOfBoard(Exception)
+    #     if self.is_empty():
+    #         return self.can_place_word_at_start(x, y, word)
+    #     elif self.is_empty() is False:
+    #         for i in range(len(word)):
+    #             if self.grid[x][y + i].letter is not None:
+    #                 if self.grid[x][y + i].letter.letter != word[i]:
+    #                     return False
+    #         return True
 
-    def validate_word_place_board_vertical(self, word, location):
-        x, y = location
-        if not self.validate_word_inside_board(word, location, "V"):
-            raise WordOutOfBoard(Exception)
-        if self.is_empty():
-            return self.can_place_word_at_start(y, x, word)
-        elif self.is_empty() is False:
-            for i in range(len(word)):
-                if self.grid[x + i][y].letter is not None:
-                    if self.grid[x + i][y].letter.letter != word[i]:
-                        return False
-            return True
+    # def validate_word_place_board_vertical(self, word, location):
+    #     x, y = location
+    #     if not self.validate_word_inside_board(word, location, "V"):
+    #         raise WordOutOfBoard(Exception)
+    #     if self.is_empty():
+    #         return self.can_place_word_at_start(y, x, word)
+    #     elif self.is_empty() is False:
+    #         for i in range(len(word)):
+    #             if self.grid[x + i][y].letter is not None:
+    #                 if self.grid[x + i][y].letter.letter != word[i]:
+    #                     return False
+    #         return True
 
-    def validate_word_place_board(self, word, location, orientation):
-        if orientation == "H":
-            return self.validate_word_place_board_horizontal(word, location)
-        elif orientation == "V":
-            return self.validate_word_place_board_vertical(word, location)
-        else:
-            raise SoloVoHParaLaOrientacion(Exception)
+    # def validate_word_place_board(self, word, location, orientation):
+    #     if orientation == "H":
+    #         return self.validate_word_place_board_horizontal(word, location)
+    #     elif orientation == "V":
+    #         return self.validate_word_place_board_vertical(word, location)
+    #     else:
+    #         raise SoloVoHParaLaOrientacion(Exception)
         
-    def put_word(self, word, location, orientation):
-        x, y = location
-        if orientation.lower() == 'h':
-            for i, tile in enumerate(word):
-                self.grid[x][y + i].add_letter(tile)
-        elif orientation.lower() == 'v':
-            for i, tile in enumerate(word):
-                self.grid[x + i][y].add_letter(tile)
-        else:
-            raise SoloVoHParaLaOrientacion(Exception)
+    # def put_word(self, word, location, orientation):
+    #     x, y = location
+    #     if orientation.lower() == 'h':
+    #         for i, tile in enumerate(word):
+    #             self.grid[x][y + i].add_letter(tile)
+    #     elif orientation.lower() == 'v':
+    #         for i, tile in enumerate(word):
+    #             self.grid[x + i][y].add_letter(tile)
+    #     else:
+    #         raise SoloVoHParaLaOrientacion(Exception)
+
+    def validate_word_inside_board(self, word, location, orientation):
+
+            position_x = location[0]
+            position_y = location[1]
+            len_word = len(word)
+            x = position_x
+            y = position_y
+            if (self.is_empty == True) & (orientation == 'H'):
+                for i in range(len_word):
+                    y += 1
+                    if (x==7) & (y==7):
+                        return True
+                return False 
+            if (self.is_empty == True) & (orientation == 'V'):
+                for i in range(len_word):
+                    x += 1
+                    if (x==7) & (y==7):
+                        return True
+                return False
+                
