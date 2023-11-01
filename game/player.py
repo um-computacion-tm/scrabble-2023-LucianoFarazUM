@@ -15,12 +15,30 @@ class Player:
         rack_strings = [str(tile) for tile in self.rack]  # Convierte objetos Tile a cadenas
         print("Sus fichas son: " + ", ".join(rack_strings))
 
+    def is_letter_in_rack(self, word):
+        player_letters = {}
+        for tile in self.rack:
+            letter = tile.letter
+            player_letters[letter] = player_letters.get(letter, 0) + 1
+
+        try:
+            for letter in word:
+                if player_letters[letter] > 0:
+                    player_letters[letter] -= 1
+                else:
+                    raise KeyError(f"Falta la letra '{letter}' para formar la palabra '{word}'.")
+        except KeyError as e:
+            raise KeyError(e)
+        
+        return True
+
 
     def add_letters(self, letters):
         self.rack.extend(letters)
 
-    def get_letters(self):
-        return self.rack
-
     def get_score(self):
         return self.score
+    
+    def update_score(self, points):
+        self.get_score
+        self.score += points

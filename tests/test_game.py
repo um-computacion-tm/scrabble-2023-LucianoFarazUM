@@ -1,7 +1,7 @@
 
 import unittest
 from game.game_models import (
-    Tile, BagTiles, exception100, exception0,
+    Tile, BagTiles, Exception100, Exception0,
 )
 from unittest.mock import patch
 
@@ -45,12 +45,12 @@ class TestBagTiles(unittest.TestCase):
     
     def test_exception0(self):
         bag = BagTiles()
-        with self.assertRaises(exception0):
+        with self.assertRaises(Exception0):
             bag.add_to_bag(Tile('A', 1), 10)  # Agregar 10 fichas cuando ya hay 100 fichas en la bolsa
 
     def test_exception100(self):
         bag = BagTiles()
-        with self.assertRaises(exception100):
+        with self.assertRaises(Exception100):
             bag.take(101)  # Intentar tomar 101 fichas cuando solo hay 100 disponibles
         self.assertEqual(len(bag.bag), 100)  # Asegurarse de que la bolsa no cambió después de la excepción
 
