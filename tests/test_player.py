@@ -1,43 +1,52 @@
 import unittest
 from game.player import Player
-from game.game_models import BagTiles
-
+import io
+from unittest.mock import patch
 
 class TestPlayer(unittest.TestCase):
-    def test_init(self):
-        player_1 = Player(bag_tiles=BagTiles())
-        self.assertEqual(len(player_1.tiles), 0)
+    def setUp(self):
+        # Configuración común para los tests
+        self.player = Player()
 
-    def test_get_score(self):
-        player = Player(bag_tiles=BagTiles())
-        player.score = 10
-        self.assertEqual(player.get_score(), 10)
+    def test_initialization(self):
+        self.assertEqual(self.player.score, 0)
+        self.assertEqual(len(self.player.rack), 7)
 
-    def test_add_letter(self):
-        bag_tiles = BagTiles()
-        player = Player(bag_tiles)
-        
-        # Agregar una letra a la mano del jugador
-        player.add_letter("A")
-        self.assertEqual(player.get_letters(), ["A"])
+    @patch('builtins.input', return_value='NuevoNombre')
+    def test_set_nickname(self, mock_input):
+        self.player.set_nickname()
+        # Verifica que el atributo nickname de la instancia Player se haya actualizado correctamente
+        self.assertEqual(self.player.nickname, 'NuevoNombre')
 
-        # Agregar más letras
-        player.add_letter("B")
-        player.add_letter("C")
-        self.assertEqual(player.get_letters(), ["A", "B", "C"])
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_display_rack(self, mock_stdout):
+        self.player.display_rack()
+        printed_output = mock_stdout.getvalue().strip()
+        # Aquí puedes agregar aserciones para verificar el contenido impreso
+        # Por ejemplo, puedes verificar si ciertos valores esperados están en la salida
+        self.assertIn("Sus fichas son:", printed_output)
+        for tile in self.player.rack:
+            self.assertIn(str(tile), printed_output)
+
+
+    def test_add_letters(self):
+        initial_rack_length = len(self.player.rack)
+        letters_to_add = ['A', 'B', 'C']
+        self.player.add_letters(letters_to_add)
+        self.assertEqual(len(self.player.rack), initial_rack_length + len(letters_to_add))
 
     def test_get_letters(self):
-        bag_tiles = BagTiles()
-        player = Player(bag_tiles)
-        
-        # Verificar que la mano del jugador esté vacía inicialmente
-        self.assertEqual(player.get_letters(), [])
-
-        # Agregar letras a la mano del jugador
-        player.add_letter("X")
-        player.add_letter("Y")
-        player.add_letter("Z")
-        self.assertEqual(player.get_letters(), ["X", "Y", "Z"])
+        letters_to_add = ['A', 'B', 'C']
+        initial_rack_letters = set(str(tile) for tile in self.player.get_letters())  # Convertir las letras iniciales a un conjunto
+        self.player.add_letters(letters_to_add)
+        updated_rack_letters = set(str(tile) for tile in self.player.get_letters())  # Convertir las letras después de la adición a un conjunto
+        added_letters_set = set(letters_to_add)  # Convertir las letras que se van a agregar a un conjunto
+        self.assertSetEqual(updated_rack_letters, initial_rack_letters.union(added_letters_set),
+                            "Las letras en el rack no coinciden con las letras agregadas.")
+    def test_get_score(self):
+        # Asigna un valor a la puntuación y verifica que se devuelva correctamente
+        self.player.score = 100
+        self.assertEqual(self.player.get_score(), 100)
 
 if __name__ == '__main__':
     unittest.main()

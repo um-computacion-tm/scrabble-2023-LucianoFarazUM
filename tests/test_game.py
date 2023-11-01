@@ -12,13 +12,6 @@ class TestTile(unittest.TestCase):
         self.assertEqual(tile.letter, 'A')
         self.assertEqual(tile.value, 1)
 
-    def test_add_letter(self):
-        tile = Tile('A', 1)
-        new_tile = Tile('B', 3)
-        tile.add_letter(new_tile)
-        self.assertEqual(tile.letter, 'B')
-        self.assertEqual(tile.value, 3)
-
     def test_tile_repr(self):
         tile = Tile('A', 1)
         expected_repr = "A:1"

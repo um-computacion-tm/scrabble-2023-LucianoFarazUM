@@ -16,7 +16,6 @@ class Player:
         print("Sus fichas son: " + ", ".join(rack_strings))
 
 
-
     def add_letters(self, letters):
         self.rack.extend(letters)
 

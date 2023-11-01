@@ -8,8 +8,7 @@ class Cell:
         self.letter = letter
         self.active = active
 
-    def clear_letter(self):
-        self.letter = None
+    
 
     def add_letter(self, letter:Tile):
         self.letter = letter
