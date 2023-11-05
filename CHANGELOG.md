@@ -1,4 +1,23 @@
 
+## [1.4.1] - 2023-11-5
+### Changed
+- modified can_form_word  method
+- modified play method
+- modified main module
+- modified board validation methods and put_word method
+## [1.3.10] - 2023-11-1
+### Changed
+- modified add_to_bag
+- modified display_rack
+### removed
+- removed calculator_values module
+- removed validation method 
+- removed prueba 
+- removed clear_board method
+- removed class main 
+### Added 
+- calculate_word values add to board 
+- add update_score
 ## [1.3.9] - 2023-10-31
 ### Changed
 - modified rack in player 

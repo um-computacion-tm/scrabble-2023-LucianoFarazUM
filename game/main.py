@@ -1,30 +1,17 @@
 from game.scrabble import ScrabbleGame
-from game.board import Board
 from game.player import Player
 from game.game_models import BagTiles
 import random
 
 
-def play_word():
-        word = input("Ingrese la palabra:")
-        location_x = input("Ingrese posicion X: ")
-        location_y = input("Ingrese posicion Y: ")
-        location = (location_x, location_y)
-        orientation = input("Ingrese orientacion (V/H)")
-        self.scrabbleGame.play(word, player, orientation, location)
-
 
 def main():
-        bagtiles = BagTiles()  # Crear una instancia de BagTiles
-        player = Player()
-        board = Board() 
-
-
-
-        print("Bienvenido!")
+        bagtiles = BagTiles()
+        
+        print("Bienvenidos al scrabble de luciano!")
         while True:
             try:
-                players_count = int(input("Ingrese cantidad de jugadores: "))
+                players_count = int(input("Ingrese cantidad de jugadores(de 1 a 4): "))
                 if 1 <= players_count <= 4:
                     break
                 else:
@@ -32,19 +19,17 @@ def main():
             except ValueError:
                 print("Error Ingrese de 1 a 4 jugadores")
         scrabbleGame = ScrabbleGame(players_count=players_count)
+        
         print("Cantidad de jugadores: ", len(scrabbleGame.players))
 
         for i in range(len(scrabbleGame.players)):
             scrabbleGame.players[i].set_nickname()
             scrabbleGame.next_turn()
-        
-        while True:
-        
+        print('Scrabble')
 
-            
-            print('Scrabble')
-            
-            print(f"Turno del jugardor {scrabbleGame.players[scrabbleGame.current_player].nickname} \n")
+        while True:
+            player=scrabbleGame.players[scrabbleGame.current_player]
+            print(f"Turno del jugador {scrabbleGame.players[scrabbleGame.current_player].nickname} \n")
             print('_' * 15)
             print('--Menu--')
             print('1. Mostrar Tablero')
@@ -66,7 +51,7 @@ def main():
             elif option == '3':
                 player.display_rack()
             elif option == '4':
-                play_word(scrabbleGame, scrabbleGame.players[scrabbleGame.current_player])
+                scrabbleGame.play()
             elif option == '5':
                 bagtiles.put(player.rack)
                 random.shuffle(bagtiles.bag)

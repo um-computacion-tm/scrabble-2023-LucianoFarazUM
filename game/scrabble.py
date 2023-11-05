@@ -20,15 +20,24 @@ class ScrabbleGame:
         self.current_player = (self.current_player + 1) % len(self.players)
 
 
-    def can_form_word(self, word: str, player: Player) -> bool:
-        player_letters = player.rack
-        hand_letters = list(player_letters)
+   
+    def can_form_word(self, word, player: Player) -> bool:
+        player = self.players[self.current_player]
+        player_tiles = player.rack  
+        hand_letters = [tile.letter for tile in player_tiles]  
+        self.matching_tiles = []  
         for letter in word:
             if letter in hand_letters:
+                matching_tile_index = hand_letters.index(letter)
+                matching_tile = player_tiles.pop(matching_tile_index) 
+                self.matching_tiles.append(matching_tile)  
                 hand_letters.remove(letter)  
             else:
                 return False
-        return True
+        return True, self.matching_tiles  
+
+
+
 
     def show_board(self):
         print('\n  |' + ''.join([f' {str(row_index).rjust(2)} ' for row_index in range(15)]))
@@ -42,11 +51,6 @@ class ScrabbleGame:
     def show_score(self):
         print("Su puntaje es :",self.players[self.current_player].score)
 
-    def display_tiles(self, player):
-        print
-        for tile in player.rack:
-            print(f"[{tile.letter}, {tile.value}]", end=' ')
-        print()
 
 
     def end_game(self):
@@ -63,20 +67,28 @@ class ScrabbleGame:
                     print("Por favor, ingresa 'Sí' o 'No'.")
 
     
-    def validate_word(self, word, player, location, orientation):
+    def validate_word(self,word,location,orientation,player):
         if not self.can_form_word(word, player):
             return False
         if not self.board.validate_word_place_board(word, location, orientation):
             return False
         if not self.dict.validate_dict(word):
             return False
-        
+        return True
 
-    
-    def play(self, word, player, location, orientation):
-        if self.validate_word(word, player, location, orientation):
-            word = self.board.put_word(word, location, orientation)
+        
+    def play(self): 
+        word = input("Ingrese la palabra:")
+        location_x = int(input("Ingrese posicion X: "))  # Convertir la entrada a un entero
+        location_y = int(input("Ingrese posicion Y: "))  # Conviertir la entrada a un entero
+        location = (location_x, location_y)
+        print(location)
+        orientation = input("Ingrese orientacion (V/H)")
+        player = self.players[self.current_player]
+        if self.validate_word(word,location,orientation,player):
+            word = self.matching_tiles
+            self.board.put_word(word, location, orientation)
+            word= self.board.occupied_cells
             total_points = self.board.calculate_word_value(word)
-            current_player_instance = self.players[self.current_player]
-            current_player_instance.update_score(total_points)
+            player.update_score(total_points)  # Debes pasar total_points como argumento a update_score
             self.next_turn()
