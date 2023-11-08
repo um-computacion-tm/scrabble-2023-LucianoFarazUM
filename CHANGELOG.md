@@ -1,4 +1,16 @@
 
+## [1.4.2] - 2023-11-8
+### Changed
+- modified most Scrabble class methods
+- modified add_to_bag , initialize_bag methods in Game_models
+- modified Player class init 
+- modified general options in Main
+- modified and enhanced Board class validation methods
+- modified Cell mutipliers for correct working
+### Added 
+- added fill_rack, renew_rack, set_wildcard methods in Player class
+### removed
+-removed adjacent_word validation method
 ## [1.4.1] - 2023-11-5
 ### Changed
 - modified can_form_word  method

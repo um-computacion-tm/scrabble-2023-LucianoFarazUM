@@ -8,12 +8,14 @@ class Cell:
         self.letter = letter
         self.active = active
 
-
     def calculate_value(self):
         if self.letter is None:
             return 0
         if self.multiplier_type == 'letter' and self.active:
+            self.active =  False 
             return self.letter.value * self.multiplier
+        elif self.multiplier_type == 'letter' and not self.active:
+            return self.letter.value * 1
         else:
             return self.letter.value
 
@@ -28,3 +30,4 @@ class Cell:
             return f'{"W" if self.multiplier_type == "word" else "L"}x{self.multiplier}'
         else:
             return '   '
+        

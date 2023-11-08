@@ -1,18 +1,51 @@
-from game.game_models import BagTiles
 
 class Player:
-    def __init__(self, id=0, nickname="nombre/apodo"):
-        self.bag_tiles = BagTiles()  # Crear una instancia de BagTiles
+    def __init__(self, bag_tiles, nickname="nombre/apodo"):
+        self.bag_tiles = bag_tiles
         self.score = 0
-        self.rack = self.bag_tiles.take(7)  # Llamar al método take con el argumento count
-        self.id = id
+        self.rack = self.bag_tiles.take(7)  
         self.nickname = nickname
         
+
+    def set_wildcard(self, word):
+        new_letter = input("Ingrese la letra del comodin: ")
+        word_list = list(word) 
+        rack_copy = self.rack.copy()  
+
+        for i in range(len(word_list)):
+            if word_list[i] == "#":
+                for j in range(len(rack_copy)):
+                    if rack_copy[j].letter == "#":
+                        word_list[i] = new_letter  
+                        rack_copy[j].letter = new_letter  
+                        break  
+                    else:
+                        continue  
+            if word_list[i] == "@":
+                for j in range(len(rack_copy)):
+                    if rack_copy[j].letter == "@":
+                        word_list[i] = new_letter  
+                        rack_copy[j].letter = new_letter  
+                        break  
+                    else:
+                        continue
+        modified_word = "".join(word_list)
+        self.rack = rack_copy  
+        return modified_word
+        
+    def renew_rack(self,matching_tiles):
+        for tile in matching_tiles:
+            if tile in self.rack:
+                self.rack.remove(tile)
+        self.fill_rack()
+
+
+
     def set_nickname(self):
         self.nickname = input('Ingrese su nombre/apodo: ')
         
     def display_rack(self):
-        rack_strings = [str(tile) for tile in self.rack]  # Convierte objetos Tile a cadenas
+        rack_strings = [str(tile) for tile in self.rack]  
         print("Sus fichas son: " + ", ".join(rack_strings))
 
     def is_letter_in_rack(self, word):
@@ -32,7 +65,13 @@ class Player:
         
         return True
 
+    def fill_rack(self):
+        new_tiles=self.bag_tiles.take(7-len(self.rack))
+        self.rack+=new_tiles
 
+
+
+    
     def add_letters(self, letters):
         self.rack.extend(letters)
 

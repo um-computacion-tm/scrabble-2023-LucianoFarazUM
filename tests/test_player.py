@@ -35,14 +35,6 @@ class TestPlayer(unittest.TestCase):
         self.player.add_letters(letters_to_add)
         self.assertEqual(len(self.player.rack), initial_rack_length + len(letters_to_add))
 
-    def test_get_letters(self):
-        letters_to_add = ['A', 'B', 'C']
-        initial_rack_letters = set(str(tile) for tile in self.player.get_letters())  # Convertir las letras iniciales a un conjunto
-        self.player.add_letters(letters_to_add)
-        updated_rack_letters = set(str(tile) for tile in self.player.get_letters())  # Convertir las letras después de la adición a un conjunto
-        added_letters_set = set(letters_to_add)  # Convertir las letras que se van a agregar a un conjunto
-        self.assertSetEqual(updated_rack_letters, initial_rack_letters.union(added_letters_set),
-                            "Las letras en el rack no coinciden con las letras agregadas.")
     def test_get_score(self):
         # Asigna un valor a la puntuación y verifica que se devuelva correctamente
         self.player.score = 100

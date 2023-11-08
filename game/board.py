@@ -53,6 +53,9 @@ class Board:
             value = value + cell.calculate_value()
             if cell.multiplier_type == "word" and cell.active:
                 multiplier_word = cell.multiplier
+                cell.active=False
+            elif cell.multiplier_type == "word" and not cell.active:
+                multiplier_word = 1
         if multiplier_word:
             value = value * multiplier_word
         return value
@@ -103,8 +106,8 @@ class Board:
             return self.can_place_word_at_start(x, y, word)
         else:
             for i in range(len(word)):
-                if self.grid[x][y + i].letter is not None:
-                    if self.grid[x][y + i].letter.letter != word[i]:
+                if self.grid[x][y+i].letter is not None:
+                    if self.grid[x][y+i].letter.letter != word[i]:
                         return False
             return True
 
@@ -116,53 +119,75 @@ class Board:
             return self.can_place_word_at_start(y, x, word)
         else:
             for i in range(len(word)):
-                if self.grid[x + i][y].letter is not None:
-                    if self.grid[x + i][y].letter.letter != word[i]:
+                if self.grid[x+i][y].letter is not None:
+                    if self.grid[x+i][y].letter.letter != word[i]:
                         return False
             return True
 
 
-    def put_word(self, word, location, orientation):
+    def put_word(self, word, location, orientation,player):
         x, y = location
-        self.occupied_cells = []  
-
+        self.occupied_cells = [] 
         if orientation == 'H':
             for i, tile in enumerate(word):
-                cell = self.grid[x][y + i]  
+                cell = self.grid[x][y+i]  
                 cell.add_letter(tile)  
-                self.occupied_cells.append(cell)  
+                self.occupied_cells.append(cell) 
         elif orientation == 'V':
             for i, tile in enumerate(word):
-                cell = self.grid[x + i][y]  
+                cell = self.grid[x+i][y]  
                 cell.add_letter(tile)  
                 self.occupied_cells.append(cell)  
-        else:
+
+        else: 
             raise SoloVoHParaLaOrientacion(Exception)
 
         return self.occupied_cells  
 
 
-    def validate_adjacent_placement(self, word, location, orientation):
+    def validate_word_connections(self, word, location, orientation, hand_letters, player_tiles):
         position_x, position_y = location
+        self.player_tiles = player_tiles
+        self.hand_letters = hand_letters
         if self.is_empty():
             return self.can_place_word_at_start(position_x, position_y, word)
-        else: 
+        else:
+            letters_exist = []
+
+    
             if orientation == 'H':
-                for i in range(len(word)):
-                    if self.grid[position_x + i][position_y].letter is None:
-                        
-                        return False
-            else:
-                for i in range(len(word)):
-                    if self.grid[position_x][position_y + i].letter is None:
-                        return False
+                for i in range(position_y, position_y + len(word)):
+                    letters_exist.append((position_x, i))
+            elif orientation == 'V':
+                for i in range(position_x, position_x + len(word)):
+                    letters_exist.append((i, position_y))
+
         
-        return True
+            if all(self.grid[position_x][position_y].letter is None for position_x, position_y in letters_exist):
+                return False
+            
+            for letter_pos in letters_exist:
+                letter_x, letter_y = letter_pos
+                cell = self.grid[letter_x][letter_y]  
+                tile_object = cell.letter 
+                if tile_object == None:
+                    continue
+                tile_letter_value = tile_object.letter  
+                self.player_tiles.append(tile_object)
+                self.hand_letters.append(tile_letter_value)
+                matching_letter = word[letter_y - position_y] if orientation == 'H' else word[letter_x - position_x]
+
+                if tile_letter_value != matching_letter:
+                    return False, self.player_tiles, self.hand_letters
+            
+            return True, self.player_tiles, self.hand_letters
+            
+    def verify_tiles(self):
+        player_tiles= self.player_tiles
+        hand_letters=self.hand_letters
+        return player_tiles, hand_letters
     
     def validate_word_place_board(self, word, location, orientation):
-        if not self.validate_adjacent_placement(word, location, orientation):
-            return False
-        else:
             if orientation == "H":
                 return self.validate_word_place_board_horizontal(word, location)
             elif orientation == "V":

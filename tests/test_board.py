@@ -1,8 +1,5 @@
 # import unittest
-# from game.board import Board, SoloVoHParaLaOrientacion, NoValid, WordOutOfBoard, NotEnoughLetters
-# from game.game_models import Tile, BagTiles
-# from game.cell import Cell
-# from game.player import Player
+#from game.scrabble import Scrablle
 
 
 # class TestBoard(unittest.TestCase):
