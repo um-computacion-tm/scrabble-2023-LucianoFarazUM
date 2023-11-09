@@ -63,8 +63,7 @@ class ScrabbleGame:
     def end_game(self):
         if len(self.player.rack)==0:
             for player in self.players:
-                print(f"el jugador:{player.nickname} obtuvo {player.score} puntos")
-            sys.exit()
+                sys.exit()
         else:
             while True:
                 choice = input("¿Quieres terminar el juego? (Sí/No): ").strip().lower()
@@ -81,7 +80,6 @@ class ScrabbleGame:
     def validate_word(self, word, location, orientation):
         if not self.can_form_word(word,location,orientation):
             
-            print("Las letras no están en el rack del jugador.")
             return False
         if not self.board.validate_word_place_board(word, location, orientation):
             print("La palabra no puede ser colocada en esa posición(si es la primer palabra a ingresar va en la posicion 7,7).")
@@ -132,7 +130,6 @@ class ScrabbleGame:
             word= modified_word
             
         
-        print("Ingrese las posiciones del tablero (números del 0 al 14):")
         location_x, location_y = self.obtener_posicion()
         location = (location_x, location_y)
         

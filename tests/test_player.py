@@ -139,6 +139,7 @@ class TestPlayer(unittest.TestCase):
         expected_call = call('Ingrese la letra del comodin: ')
         self.assertIn(expected_call, mock_input.call_args_list)
     
+    
 
 if __name__ == '__main__':
     unittest.main()

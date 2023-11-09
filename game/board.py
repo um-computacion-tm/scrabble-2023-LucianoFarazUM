@@ -154,8 +154,9 @@ class Board:
         else:
             letters_exist = []
 
-    
-            if orientation == 'H':
+            if orientation not in ['H', 'V']:
+                raise SoloVoHParaLaOrientacion("Orientación inválida. Solo se permite 'H' o 'V'.")
+            elif orientation == 'H':
                 for i in range(position_y, position_y + len(word)):
                     letters_exist.append((position_x, i))
             elif orientation == 'V':
