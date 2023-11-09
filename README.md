@@ -1,3 +1,21 @@
+1. Make sure to have docker installed. You can install Docker from Docker oficial web site (https://www.docker.com/get-started) if you dont have it. 
+
+2. Install Git using in cmd: -apt-get install git-
+
+3. Clone the repository using: -git clone https://github.com/um-computacion-tm/scrabble-2023-LucianoFarazUM.git
+    
+4. Navigate to the repository directory: cd /.../scrabble-2023-LucianoFarazUM
+
+
+5. Build the Docker image: -docker build -t image_name .-  (In image name give it the name you want)
+
+6. Run the Docker image: -docker run -it image_name-
+
+
+
+
+
+
 # Scrabble-LucianoFaraz
 
 SCRABBLE is a word game in which each player is given 7 pieces to start and is allowed from one to up to four players. The game consists of filling out a 15x15 board, this board has letter and word multipliers, and in this case we only allow words valid for a dictionary from the Royal Spanish Academy.
