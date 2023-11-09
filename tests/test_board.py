@@ -1,255 +1,135 @@
-# import unittest
-#from game.scrabble import Scrablle
+import unittest
+from game.board import Board
+from game.cell import Cell
+from game.game_models import Tile
 
+class TestBoard(unittest.TestCase):
+    def setUp(self):
+        self.board = Board()
 
-# class TestBoard(unittest.TestCase):
-
-#     def test_init(self):
-#         board = Board()
-#         self.assertEqual(
-#             len(board.grid), 15
-#         )
-
-#         self.assertEqual(
-#             len(board.grid[0]), 15
-#         )
-
-#     def test_initial_board_setup(self):
-#         board = Board()
-#         self.assertEqual(board.grid[0][0].multiplier_type, 'word')
-#         self.assertEqual(board.grid[0][0].multiplier, 3)
+    def test_is_empty_with_non_empty_board(self):
+        # Colocar una letra en el centro del tablero (posición 7, 7)
+        self.board.grid[7][7].letter = Tile('A', 1)
+        self.assertFalse(self.board.is_empty())    
     
-#     def test_initial_board_setup2(self):
-#         board = Board()
-#         self.assertEqual(board.grid[1][1].multiplier_type, 'word')
-#         self.assertEqual(board.grid[1][1].multiplier, 2)
+          
+    def test_board_initialization(self):
+        # Verifica que la inicialización del tablero cree una matriz 15x15 de celdas
+        self.assertEqual(len(self.board.grid), 15)
+        for row in self.board.grid:
+            self.assertEqual(len(row), 15)
+            for cell in row:
+                self.assertIsInstance(cell, Cell)
 
-#     def test_word_inside_board_H(self):
-#         board = Board()
-#         word = "Facultad"
-#         location = (5, 4)
-#         orientation = "H"
+    # def test_set_multipliers(self):
+    #     # Verifica que los multiplicadores estén configurados correctamente en el tablero
+    #     # Puedes implementar más casos para verificar diferentes tipos de multiplicadores
+    #     # y sus ubicaciones en el tablero
+    #     self.assertEqual(self.board.grid[0][0].multiplier_type, 'word')
+    #     self.assertEqual(self.board.grid[0][0].multiplier, 3)
+    #     self.assertEqual(self.board.grid[7][7].multiplier_type, 'word')
+    #     self.assertEqual(self.board.grid[7][7].multiplier, 2)
 
-#         word_is_valid = board.validate_word_inside_board(word, location, orientation)
+    # def test_validate_word_inside_board(self):
+    #     # Verifica que las palabras se validen correctamente dentro del tablero
+    #     valid_word = [Tile('A', 1), Tile('B', 3)]
+    #     invalid_word = [Tile('A', 1), Tile('B', 3), Tile('C', 3), Tile('D', 2)]
+    #     self.assertTrue(self.board.validate_word_inside_board(valid_word, (0, 0), 'H'))
+    #     self.assertFalse(self.board.validate_word_inside_board(invalid_word, (0, 0), 'H'))
 
-#         assert word_is_valid == True
+    def test_validate_word_place_board_horizontal(self):
+        # Verifica la validación de colocación de palabras horizontales en el tablero
+        self.assertTrue(self.board.validate_word_place_board_horizontal([Tile('A', 1)], (7, 7)))
+        self.assertFalse(self.board.validate_word_place_board_horizontal([Tile('A', 1)], (0, 0)))
+
+    def test_validate_word_place_board_vertical(self):
+        # Verifica la validación de colocación de palabras verticales en el tablero
+        self.assertTrue(self.board.validate_word_place_board_vertical([Tile('A', 1)], (7, 7)))
+        self.assertFalse(self.board.validate_word_place_board_vertical([Tile('A', 1)], (0, 0)))
+
+    def test_put_word(self):
+        # Verifica la colocación de palabras en el tablero
+        word = [Tile('A', 1), Tile('B', 3)]
+        self.board.put_word(word, (7, 7), 'H', 'player')
+        self.assertEqual(self.board.grid[7][7].letter.letter, 'A')
+        self.assertEqual(self.board.grid[7][8].letter.letter, 'B')
+
+    def test_calculate_word_value_without_multipliers(self):
+        word_without_multipliers = [
+            Cell(1, 'letter', Tile('A', 1)),
+            Cell(1, 'letter', Tile('B', 3)),
+            Cell(1, 'letter', Tile('C', 3))
+        ]
+        self.assertEqual(Board.calculate_word_value(word_without_multipliers), 7)
+
+
+    def test_calculate_word_value_with_multipliers(self):
+        word_with_multipliers = [
+            Cell(2, 'letter', Tile('A', 1)),
+            Cell(1, 'word', Tile('B', 3)),
+            Cell(1, 'letter', Tile('C', 3))
+        ]
+        self.assertEqual(Board.calculate_word_value(word_with_multipliers), 20) 
+
+    def test_calculate_word_value_with_multipliers(self):
+        word_with_multipliers = [
+            Cell(1, 'letter', Tile('A', 1)),
+            Cell(2, 'word', Tile('B', 3)),
+            Cell(1, 'letter', Tile('C', 3))
+        ]
+        self.assertEqual(Board.calculate_word_value(word_with_multipliers), 14)
+
+    def test_validate_word_inside_board(self):
+        valid_word = [Tile('A', 1), Tile('B', 3)]
+        invalid_word = [Tile('A', 1), Tile('B', 3), Tile('C', 3), Tile('D', 2)]
+        self.assertTrue(self.board.validate_word_inside_board(valid_word, (7, 7), 'H'))
+        self.assertFalse(self.board.validate_word_inside_board(invalid_word, (11, 11), 'v'))
+
+    def test_put_word(self):
+        # Verifica la colocación de palabras en el tablero
+        word = [Tile('A', 1), Tile('B', 3)]
+        self.board.put_word(word, (7, 7), 'H', 'player')
+        self.assertEqual(self.board.grid[7][7].letter.letter, 'A')
+        self.assertEqual(self.board.grid[7][8].letter.letter, 'B')
+
+    def test_put_word_horizontal(self):
+        word = [Tile('A', 1), Tile('B', 3), Tile('C', 3)]
+        location = (7, 7)
+        orientation = 'H'
+        player = None
+        occupied_cells = self.board.put_word(word, location, orientation, player)
+        expected_letters = ['A', 'B', 'C']
+        self.assertEqual([cell.letter.letter for cell in occupied_cells], expected_letters)
+
+    def test_put_word_vertical(self):
+        word = [Tile('D', 2), Tile('E', 1), Tile('F', 4)]
+        location = (7, 7)
+        orientation = 'V'
+        player = None
+        occupied_cells = self.board.put_word(word, location, orientation, player)
+        expected_letters = ['D', 'E', 'F']
+        self.assertEqual([cell.letter.letter for cell in occupied_cells], expected_letters)
+
+    def test_put_word_invalid_orientation(self):
+        word = [Tile('G', 2), Tile('H', 4)]
+        location = (7, 7)
+        orientation = 'D'  # Orientación inválida
+        player = None
+        with self.assertRaises(Exception):
+            self.board.put_word(word, location, orientation, player)
     
-#     def test_word_inside_board_V(self):
-#         board = Board()
-#         word = "Facultad"
-#         location = (1, 1)
-#         orientation = "V"
-
-#         word_is_valid = board.validate_word_inside_board(word, location, orientation)
-
-#         assert word_is_valid == True
+    def test_word_inside_board(self):
+            board = Board()
+            word = "Facultad"
+            location = (5, 4)
+            orientation = "H"
     
-#     def test_word_out_of_board_H(self):
-#         board = Board()
-#         word = "Facultad"
-#         location = (14, 9)
-#         orientation = "H"
-
-#         self.assertEqual(board.validate_word_inside_board(word, location, orientation), False)
-        
+            word_is_valid = board.validate_word_inside_board(word, location, orientation)
     
-#     def test_word_out_of_board_V(self):
-#         board = Board()
-#         word = "Facultad"
-#         location = (9, 3)
-#         orientation = "V"
-
-#         self.assertEqual(board.validate_word_inside_board(word, location, orientation), False)
-
-#     def test_incorrect_orientation(self):
-#         board = Board()
-#         word = "Facultad"
-#         location = (1, 1)
-#         orientation = "X"
-
-#         with self.assertRaises(SoloVoHParaLaOrientacion):
-#             board.validate_word_inside_board(word, location, orientation)
-    
-#     def test_board_empty(self):
-#         board = Board()
-#         assert board.is_empty() == True
-    
-#     def test_board_not_empty(self):
-#         board = Board()
-#         board.grid[7][7].add_letter(Tile('C', 3))
-#         assert board.is_empty() == False
-    
-#     def test_place_word_empty_board_horizontal_fine(self):
-#         board = Board()
-#         word = "Facultad"
-#         location = (7, 4)
-#         orientation = "H"
-
-#         word_is_valid = board.validate_word_place_board(word, location, orientation)
-
-#         assert word_is_valid == True
-
-#     def test_place_word_empty_board_horizontal_wrong(self):
-        
-#         board = Board()
-#         word = "Facultad"
-#         location = (2, 4)
-#         orientation = "H"
-
-#         word_is_valid = board.validate_word_place_board(word, location, orientation)
-
-#         assert word_is_valid == False
-    
-#     def test_place_word_empty_board_orientation_wrong(self):
-
-#         board = Board()
-#         word = "Facultad"
-#         location = (2, 4)
-#         orientation = "X"
-
-#         with self.assertRaises(SoloVoHParaLaOrientacion):
-#             board.validate_word_place_board(word, location, orientation)
-    
-#     def test_place_word_empty_board_vertical_fine(self):
-        
-#         board = Board()
-#         word = "FACULTAD"
-#         location = (4, 7)
-#         orientation = "V"
-
-#         word_is_valid = board.validate_word_place_board(word, location, orientation)
-
-#         assert word_is_valid == True
-
-#     def test_place_word_empty_board_vertical_wrong(self):
-        
-#         board = Board()
-#         word = "Facultad"
-#         location = (2, 4)
-#         orientation = "V"
-
-#         word_is_valid = board.validate_word_place_board(word, location, orientation)
-
-#         assert word_is_valid == False
-
-#     def test_place_word_not_empty_board_horizontal_fine(self):
-#         board = Board()
-#         board.grid[7] [7].add_letter(Tile('C', 1))
-#         board.grid[8] [7].add_letter(Tile('A', 1))
-#         board.grid[9] [7].add_letter(Tile('S', 1))
-#         board.grid[10] [7].add_letter(Tile('A', 1))
-#         word = "FACULTAD"
-#         location = (8, 6)
-#         orientation = "H"
-
-#         word_is_valid = board.validate_word_place_board(word, location, orientation)
-
-#         self.assertEqual(word_is_valid, True)
-
-#     def test_place_word_not_empty_board_horizontal_wrong(self):
-#         board = Board()
-#         board.grid[7] [7].add_letter(Tile('C', 1))
-#         board.grid[8] [7].add_letter(Tile('A', 1))
-#         board.grid[9] [7].add_letter(Tile('S', 1))
-#         board.grid[10] [7].add_letter(Tile('A', 1))
-#         word = "FACULTAD"
-#         location = (9, 6)
-#         orientation = "H"
-
-#         word_is_valid = board.validate_word_place_board(word, location, orientation)
-
-#         self.assertEqual(word_is_valid, False)
-    
-#     def test_place_word_not_empty_board_horizontal_out_of_board(self):
-#         board = Board()
-#         board.grid[7] [7].add_letter(Tile('C', 1))
-#         board.grid[8] [7].add_letter(Tile('A', 1))
-#         board.grid[9] [7].add_letter(Tile('S', 1))
-#         board.grid[10] [7].add_letter(Tile('A', 1))
-#         word = "FACULTADES"
-#         location = (8, 6)
-#         orientation = "H"
-
-#         with self.assertRaises(WordOutOfBoard):
-#             board.validate_word_place_board(word, location, orientation)
-
-#     def test_place_word_not_empty_board_vertical_fine(self):
-#         board = Board()
-#         board.grid[7] [7].add_letter(Tile('C', 1))
-#         board.grid[7] [8].add_letter(Tile('A', 1))
-#         board.grid[7] [9].add_letter(Tile('S', 1))
-#         board.grid[7] [10].add_letter(Tile('A', 1))
-#         word = "FACULTAD"
-#         location = (6, 8)
-#         orientation = "V"
-
-#         word_is_valid = board.validate_word_place_board(word, location, orientation)
-
-#         self.assertEqual(word_is_valid, True)
-    
-#     def test_place_word_not_empty_board_vertical_wrong(self):
-#         board = Board()
-#         board.grid[7] [7].add_letter(Tile('C', 1))
-#         board.grid[7] [8].add_letter(Tile('A', 1))
-#         board.grid[7] [9].add_letter(Tile('S', 1))
-#         board.grid[7] [10].add_letter(Tile('A', 1))
-#         word = "FACULTAD"
-#         location = (6, 9)
-#         orientation = "V"
-
-#         word_is_valid = board.validate_word_place_board(word, location, orientation)
-
-#         self.assertEqual(word_is_valid, False)
-
-#     def test_place_word_not_empty_board_vertical_out_of_board(self):
-#         board = Board()
-#         board.grid[7] [7].add_letter(Tile('C', 1))
-#         board.grid[7] [8].add_letter(Tile('A', 1))
-#         board.grid[7] [9].add_letter(Tile('S', 1))
-#         board.grid[7] [10].add_letter(Tile('A', 1))
-#         word = "FACULTADES"
-#         location = (6, 8)
-#         orientation = "V"
-
-#         with self.assertRaises(WordOutOfBoard):
-#             board.validate_word_place_board(word, location, orientation)
-
-#     def test_put_word_horizontal_valid(self):
-#         board=Board()
-#         word = [Tile('H', 4), Tile('O', 1), Tile('L', 1), Tile('A', 1)]
-#         location = (7, 6)
-#         orientation = "H"
-#         board.put_word(word, location, orientation)
-
-#         self.assertEqual(board.grid[7][6].letter.letter, 'H')
-#         self.assertEqual(board.grid[7][6].letter.value, 4)
-
-#         self.assertEqual(board.grid[7][7].letter.letter, 'O')
-#         self.assertEqual(board.grid[7][7].letter.value, 1)
-
-#         self.assertEqual(board.grid[7][8].letter.letter, 'L')
-#         self.assertEqual(board.grid[7][8].letter.value, 1)
-
-#         self.assertEqual(board.grid[7][9].letter.letter, 'A')
-#         self.assertEqual(board.grid[7][9].letter.value, 1)
+            assert word_is_valid == True
         
 
-#     def test_put_word_vertical_valid(self):
-#         board=Board()
-#         word = [Tile('N', 1), Tile('O', 1)]
-#         location = (6, 7)
-#         orientation = "V"
-#         board.put_word(word, location, orientation)
-#         self.assertEqual(board.grid[6][7].letter.letter, 'N')
-#         self.assertEqual(board.grid[6][7].letter.value, 1)
+    
 
-#         self.assertEqual(board.grid[7][7].letter.letter, 'O')
-#         self.assertEqual(board.grid[7][7].letter.value, 1)
-
-#     def test_put_word_invalid_location(self):
-#         board=Board()
-#         word = [Tile('N', 1), Tile('O', 1)]
-#         location = (0, 0)
-#         orientation = "X"
-#         with self.assertRaises(SoloVoHParaLaOrientacion):
-#             board.put_word(word, location, orientation)
+if __name__ == '__main__':
+    unittest.main()

@@ -97,7 +97,7 @@ class Board:
                 return True
             else:
                 return False
-
+            
     def validate_word_place_board_horizontal(self, word, location):
         x, y = location
         if not self.validate_word_inside_board(word, location, "H"):

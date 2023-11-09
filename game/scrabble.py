@@ -3,7 +3,7 @@ from game.player import Player
 from game.game_models import BagTiles
 from game.dictionary import Dictionary, DictionaryConnectionError
 import sys
-
+ 
 class ScrabbleGame:
     def __init__(self, players_count: int):
         self.board = Board()
@@ -53,6 +53,7 @@ class ScrabbleGame:
         for row_index, row in enumerate(self.board.grid):
             print(str(row_index).rjust(2) + '| ' + ' | '.join([repr(cell) for cell in row]) + ' |')
             print('+' + '-' * 92 + '+')
+
 
     def show_score(self):
         print("Su puntaje es :",self.player.score)

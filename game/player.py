@@ -75,7 +75,7 @@ class Player:
     def add_letters(self, letters):
         self.rack.extend(letters)
 
-    def get_score(self):
+    def get_score(self):        
         return self.score
     
     def update_score(self, points):

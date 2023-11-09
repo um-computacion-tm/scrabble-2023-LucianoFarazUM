@@ -4,6 +4,8 @@ import random
 
 
 def main():
+        
+        
 
         
         print("Bienvenidos al scrabble de luciano!")
