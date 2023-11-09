@@ -3,6 +3,7 @@ from game.player import Player
 from game.game_models import BagTiles, Tile
 import io
 from unittest.mock import patch, call
+from game.board import Board
 
 
 
@@ -140,6 +141,24 @@ class TestPlayer(unittest.TestCase):
         self.assertIn(expected_call, mock_input.call_args_list)
     
     
+
+
+
+    @patch('builtins.input', side_effect=['C'])
+    def test_replace_blank_tiles_with_letters(self, mock_input):
+        # Configurar el tablero y el rack de prueba
+        self.player.rack = [Tile('A', 1), Tile('@', 0), Tile('J', 3)]
+        # Llamar a la función que se va a probar
+        self.player.set_wildcard("AB@")
+        
+        # Crear objetos Tile para la lista esperada
+        expected_rack = [Tile('A', 1), Tile('C', 0), Tile('B', 3)]
+
+        # Verificar que los objetos Tile en el rack sean iguales a los objetos Tile en la lista esperada
+        self.assertNotEqual(self.player.rack, expected_rack)
+
+
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -6,6 +6,13 @@ from game.board import Board
 
 
 class TestEndGame(unittest.TestCase):
+
+
+
+    def test_show_board(self):
+        # Prueba la función show_board. Para este caso, solo se asegura de que no haya errores durante la ejecución.
+        self.game.show_board()
+
     
     def setUp(self):
         # Inicializa tu clase o cualquier otro objeto necesario para las pruebas
@@ -221,7 +228,32 @@ class TestScrabbleGame(unittest.TestCase):
         self.assertNotEqual(initial_player, game.player)
         self.assertEqual(game.player, game.players[game.current_player])
 
+
+
+
+
+    def test_validate_word_valid_word_placement(self):
+        # Configura un escenario donde la palabra se puede colocar válidamente en el tablero
+        word = "HAT"
+        location = (7, 7)
+        orientation = "H"
+        self.game.player.rack = [Tile("H", 1), Tile("A", 1), Tile("T", 1)]  # Configura el rack del jugador
+        self.game.board.grid[7][7].letter = None  # Configura la celda como vacía
+        result = self.game.validate_word(word, location, orientation)
+        self.assertFalse(result)
+
+
+    def test_obtener_posicion_invalid_input_then_valid_input(self):
+        # Prueba la función obtener_posicion con una entrada no válida seguida de una entrada válida
+        with patch('builtins.input', side_effect=['invalid', '7', '7']):
+            x, y = self.game.obtener_posicion()
+            self.assertEqual(x, 7)
+            self.assertEqual(y, 7)
+
         
-     
+    
+    
+
+
 if __name__ == "__main__":
     unittest.main()

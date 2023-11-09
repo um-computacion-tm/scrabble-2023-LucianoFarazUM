@@ -2,6 +2,7 @@ import unittest
 from game.board import Board, SoloVoHParaLaOrientacion
 from game.cell import Cell
 from game.game_models import Tile
+from unittest.mock import Mock
 
 class TestBoard(unittest.TestCase):
     def setUp(self):
@@ -190,6 +191,61 @@ class TestBoard(unittest.TestCase):
         result = self.board.validate_word_place_board_vertical(word, (x, y))
         self.assertTrue(result)        
 
+    def test_validate_word_horizontal_with_existing_word(self):
+        # Configura un tablero con una palabra existente ('A', 'B') en posición (7, 7)
+        existing_word = [Tile('A', 1), Tile('B', 3)]
+        self.board.put_word(existing_word, (7, 7), 'H', 'player')
+        # Intenta colocar otra palabra horizontalmente que se cruza con la palabra existente ('C', 'D')
+        word = [Tile('C', 3), Tile('D', 2)]
+        location = (6, 7)
+        orientation = 'H'
+        result = self.board.validate_word_place_board_horizontal(word, location)
+        self.assertTrue(result)
+
+    def test_validate_word_connections_empty_cell(self):
+        # Configura un tablero con una celda vacía ('A', None, 'C')
+        self.board.grid[7][7].add_letter(Cell(1, 'A'))
+        self.board.grid[7][9].add_letter(Cell(1, 'C'))
+        # Intenta colocar una palabra horizontalmente que pasa por una celda vacía
+        word = 'ABCD'
+        location = (7, 8)  # Prueba colocar la palabra en la celda vacía
+        orientation = 'H'
+
+        # Ejecuta la función que se va a probar
+        if not self.board.validate_word_connections(word, location, orientation, [], []):
+            result= False
+            player_tiles, hand_letters = self.board.verify_tiles()
+            # Verifica que la palabra no puede ser colocada y que la función retorna False
+            self.assertFalse(result)
+            self.assertEqual([tile.letter for tile in player_tiles], ['A'])
+            self.assertEqual(hand_letters, ['A', 'B', 'C', 'D'])
+            
+    def test_validate_word_connections_non_matching_letters_vertical2(self):
+        # Configura un tablero con una palabra existente vertical ('A', 'B', 'C')
+        self.board.grid[7][7].add_letter(Cell(1, 'A'))
+        self.board.grid[8][7].add_letter(Cell(1, 'B'))
+        self.board.grid[9][7].add_letter(Cell(1, 'C'))
+        # Intenta colocar una palabra verticalmente que no coincide con la palabra existente ('X', 'Y', 'Z')
+        word = 'XYZ'
+        location = (10, 7)  # Prueba colocar la palabra debajo de 'C'
+        orientation = 'V'
+
+        # Ejecuta la función que se va a probar
+        if not self.board.validate_word_connections(word, location, orientation, [], []):
+            result=False
+        player_tiles=[Tile("X",1),Tile ("Y",1), Tile ("Z",1) ]
+        hand_letters=["A","B","C"]
+        self.assertFalse(result)
+        self.assertEqual([tile.letter for tile in player_tiles], ['X', 'Y', 'Z'])
+        self.assertEqual(hand_letters, ['A', 'B', 'C'])
+
+    def test_validate_word_place_board_invalid_orientation(self):
+        # Verifica que se levante una excepción para una orientación inválida
+        word = [Tile('A', 1), Tile('B', 3)]
+        location = (7, 7)
+        orientation = 'D'  # Orientación inválida
+        with self.assertRaises(SoloVoHParaLaOrientacion):
+            self.board.validate_word_place_board(word, location, orientation)
 
     
 
