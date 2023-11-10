@@ -160,5 +160,25 @@ class TestPlayer(unittest.TestCase):
 
 
 
+    @patch.object(Player, 'fill_rack')
+    def test_renew_rack_remove(self, mock_fill_rack):
+        # Prueba el método remove en renew_rack
+    
+        # Establece el rack inicial
+        self.player.rack = ["A", "B", "C", "D", "E"]
+        
+        # Llama a renew_rack con una lista de matching_tiles
+        matching_tiles = ["B", "D"]
+        self.player.renew_rack(matching_tiles)
+        
+        # Verifica que las letras B y D hayan sido eliminadas del rack
+        self.assertNotIn("B", self.player.rack)
+        self.assertNotIn("D", self.player.rack)
+        
+        # Verifica que fill_rack se haya llamado después de remover las letras
+        mock_fill_rack.assert_called_once()
+
+
+
 if __name__ == '__main__':
     unittest.main()

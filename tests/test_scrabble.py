@@ -250,10 +250,32 @@ class TestScrabbleGame(unittest.TestCase):
             self.assertEqual(x, 7)
             self.assertEqual(y, 7)
 
-        
+    def test_end_game_no(self):
+        with patch('builtins.input', return_value='no'):
+            juego = ScrabbleGame(1)
+            resultado = juego.end_game()
+            # Verifica que el método devuelva False cuando el usuario ingresa 'no'
+            self.assertFalse(resultado)
+
+    def test_can_form_word_false(self):
+        # Prueba cuando self.can_form_word devuelve False
+        self.game.can_form_word = lambda word, location, orientation: False
+        resultado = self.game.validate_word("palabra", (1, 1), "horizontal")
+        self.assertFalse(resultado)
     
+    def test_validate_word_place_board_false(self):
+        # Prueba cuando self.board.validate_word_place_board devuelve False
+        self.game.board.validate_word_place_board = lambda word, location, orientation: False
+        resultado = self.game.validate_word("palabra", (1, 1), "horizontal")
+        self.assertFalse(resultado)
     
+    def test_validate_dict_false(self):
+        # Prueba cuando self.dict.validate_dict lanza una excepción
+        self.game.dict.validate_dict = lambda word: False
+        resultado = self.game.validate_word("palabra", (1, 1), "horizontal")
+        self.assertFalse(resultado)
 
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     unittest.main()
