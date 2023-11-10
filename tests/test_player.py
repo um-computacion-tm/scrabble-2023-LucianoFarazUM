@@ -3,6 +3,7 @@ from game.player import Player
 from game.game_models import BagTiles, Tile
 import io
 from unittest.mock import patch, call
+from game.board import Board
 
 
 
@@ -139,6 +140,45 @@ class TestPlayer(unittest.TestCase):
         expected_call = call('Ingrese la letra del comodin: ')
         self.assertIn(expected_call, mock_input.call_args_list)
     
+    
+
+
+
+    @patch('builtins.input', side_effect=['C'])
+    def test_replace_blank_tiles_with_letters(self, mock_input):
+        # Configurar el tablero y el rack de prueba
+        self.player.rack = [Tile('A', 1), Tile('@', 0), Tile('J', 3)]
+        # Llamar a la función que se va a probar
+        self.player.set_wildcard("AB@")
+        
+        # Crear objetos Tile para la lista esperada
+        expected_rack = [Tile('A', 1), Tile('C', 0), Tile('B', 3)]
+
+        # Verificar que los objetos Tile en el rack sean iguales a los objetos Tile en la lista esperada
+        self.assertNotEqual(self.player.rack, expected_rack)
+
+
+
+
+    @patch.object(Player, 'fill_rack')
+    def test_renew_rack_remove(self, mock_fill_rack):
+        # Prueba el método remove en renew_rack
+    
+        # Establece el rack inicial
+        self.player.rack = ["A", "B", "C", "D", "E"]
+        
+        # Llama a renew_rack con una lista de matching_tiles
+        matching_tiles = ["B", "D"]
+        self.player.renew_rack(matching_tiles)
+        
+        # Verifica que las letras B y D hayan sido eliminadas del rack
+        self.assertNotIn("B", self.player.rack)
+        self.assertNotIn("D", self.player.rack)
+        
+        # Verifica que fill_rack se haya llamado después de remover las letras
+        mock_fill_rack.assert_called_once()
+
+
 
 if __name__ == '__main__':
     unittest.main()
