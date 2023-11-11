@@ -5,15 +5,17 @@ class Player:
         self.score = 0
         self.rack = self.bag_tiles.take(7)  
         self.nickname = nickname
-        
+
     def handle_wildcard(self, word_list, wildcard, new_letter, rack_copy):
         for i, letter in enumerate(word_list):
             if letter == wildcard:
-                for tile in rack_copy:
-                    if tile.letter == wildcard:
-                        word_list[i] = new_letter
-                        tile.letter = new_letter
-                        break
+                matching_tiles = [tile for tile in rack_copy if tile.letter == wildcard]
+
+                if matching_tiles:
+                    word_list[i] = new_letter
+                    matching_tiles[0].letter = new_letter
+                    break
+
 
     def set_wildcard(self, word):
         new_letter = input("Ingrese la letra del comodin: ")

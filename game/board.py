@@ -138,12 +138,12 @@ class Board:
             cell.add_letter(tile)
             self.occupied_cells.append(cell)
         return self.occupied_cells
-
-
+    
     def validate_word_connections(self, word, location, orientation, hand_letters, player_tiles):
         position_x, position_y = location
         self.player_tiles = player_tiles
         self.hand_letters = hand_letters
+
         if self.is_empty():
             return self.can_place_word_at_start(position_x, position_y, word)
         else:
@@ -152,32 +152,43 @@ class Board:
     def check_word_connections(self, word, position_x, position_y, orientation):
         letters_exist = self.get_letters_exist(position_x, position_y, word, orientation)
 
-        if all(self.grid[x][y].letter is None for x, y in letters_exist):
+        if self.is_all_empty(letters_exist):
             return False
+        else:
+            return self.check_letters_match(word, position_x, position_y, orientation, letters_exist)
+
+    def is_all_empty(self, letters_exist):
+        return all(self.grid[x][y].letter is None for x, y in letters_exist)
+
+    def check_letters_match(self, word, position_x, position_y, orientation, letters_exist):
         for letter_pos in letters_exist:
             letter_x, letter_y = letter_pos
             cell = self.grid[letter_x][letter_y]
             tile_object = cell.letter
-            if tile_object is None:
-                continue
-            tile_letter_value = tile_object.letter
-            self.player_tiles.append(tile_object)
-            self.hand_letters.append(tile_letter_value)
-            matching_letter = word[letter_y - position_y] if orientation == 'H' else word[letter_x - position_x]
-            if tile_letter_value != matching_letter:
-                return False, self.player_tiles, self.hand_letters
+
+            if tile_object is not None:
+                if not self.match_tile_letter(tile_object, word, position_x, position_y, orientation, letter_x, letter_y):
+                    return False, self.player_tiles, self.hand_letters
+
         return True, self.player_tiles, self.hand_letters
 
+    def match_tile_letter(self, tile_object, word, position_x, position_y, orientation, letter_x, letter_y):
+        tile_letter_value = tile_object.letter
+        self.player_tiles.append(tile_object)
+        self.hand_letters.append(tile_letter_value)
+        matching_letter = word[letter_y - position_y] if orientation == 'H' else word[letter_x - position_x]
+        return tile_letter_value == matching_letter
+    
     def get_letters_exist(self, position_x, position_y, word, orientation):
         letters_exist = []
         if orientation not in ['H', 'V']:
             raise SoloVoHParaLaOrientacion("Orientación inválida. Solo se permite 'H' o 'V'.")
         elif orientation == 'H':
-            letters_exist = [(position_x, i) for i in range(position_y, position_y + len(word))]
+                letters_exist = [(position_x, i) for i in range(position_y, position_y + len(word))]
         elif orientation == 'V':
-            letters_exist = [(i, position_y) for i in range(position_x, position_x + len(word))]
+                letters_exist = [(i, position_y) for i in range(position_x, position_x + len(word))]
         return letters_exist
-    
+        
     def verify_tiles(self):
         player_tiles= self.player_tiles
         hand_letters=self.hand_letters

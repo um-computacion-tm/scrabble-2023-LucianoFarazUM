@@ -46,20 +46,24 @@ def print_menu():
 def handle_menu_option(option, scrabble_game, bag_tiles):
     player = scrabble_game.players[scrabble_game.current_player]
 
-    if option == '1':
-        scrabble_game.show_board()
-    elif option == '2':
-        scrabble_game.show_score()
-    elif option == '3':
-        scrabble_game.play()
-    elif option == '4':
-        exchange_tiles(player, bag_tiles)
-    elif option == '5':
-        scrabble_game.next_turn()
-    elif option == '6':
-        scrabble_game.end_game()
-    else:
-        print("Opción inválida\n")
+    option_handlers = {
+        '1': scrabble_game.show_board,
+        '2': scrabble_game.show_score,
+        '3': scrabble_game.play,
+        '4': lambda: exchange_tiles_menu(player, bag_tiles),
+        '5': scrabble_game.next_turn,
+        '6': scrabble_game.end_game,
+    }
+
+    handler = option_handlers.get(option, lambda: print("Opción inválida\n"))
+    handler()
+
+def exchange_tiles_menu(player, bag_tiles):
+    bag_tiles.put(player.rack)
+    random.shuffle(bag_tiles.bag)
+    player.rack = bag_tiles.take(len(player.rack))
+    rack_strings = [str(tile) for tile in player.rack]
+    print("Sus nuevas fichas son: " + ", ".join(rack_strings))
 
 def exchange_tiles(player, bag_tiles):
     bag_tiles.put(player.rack)
