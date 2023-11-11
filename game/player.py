@@ -7,38 +7,32 @@ class Player:
         self.nickname = nickname
         
 
+    def handle_wildcard(self, word_list, wildcard, new_letter, rack_copy):
+        for i in range(len(word_list)):
+            if word_list[i] == wildcard:
+                for j in range(len(rack_copy)):
+                    if rack_copy[j].letter == wildcard:
+                        word_list[i] = new_letter
+                        rack_copy[j].letter = new_letter
+                        break
+    
     def set_wildcard(self, word):
         new_letter = input("Ingrese la letra del comodin: ")
-        word_list = list(word) 
-        rack_copy = self.rack.copy()  
+        word_list = list(word)
+        rack_copy = self.rack.copy()
 
-        for i in range(len(word_list)):
-            if word_list[i] == "#":
-                for j in range(len(rack_copy)):
-                    if rack_copy[j].letter == "#":
-                        word_list[i] = new_letter  
-                        rack_copy[j].letter = new_letter  
-                        break  
-                    else:
-                        continue  
-            if word_list[i] == "@":
-                for j in range(len(rack_copy)):
-                    if rack_copy[j].letter == "@":
-                        word_list[i] = new_letter  
-                        rack_copy[j].letter = new_letter  
-                        break  
-                    else:
-                        continue
+        self.handle_wildcard(word_list, "#", new_letter, rack_copy)
+        self.handle_wildcard(word_list, "@", new_letter, rack_copy)
+
         modified_word = "".join(word_list)
-        self.rack = rack_copy  
+        self.rack = rack_copy
         return modified_word
         
     def renew_rack(self,matching_tiles):
         for tile in matching_tiles:
             if tile in self.rack:
                 self.rack.remove(tile)
-        self.fill_rack()
-
+        self.fill_rack() 
 
 
     def set_nickname(self):
@@ -53,7 +47,6 @@ class Player:
         for tile in self.rack:
             letter = tile.letter
             player_letters[letter] = player_letters.get(letter, 0) + 1
-
         try:
             for letter in word:
                 if player_letters[letter] > 0:
@@ -64,7 +57,6 @@ class Player:
             raise KeyError(e)
         
         return True
-
     def fill_rack(self):
         new_tiles=self.bag_tiles.take(7-len(self.rack))
         self.rack+=new_tiles

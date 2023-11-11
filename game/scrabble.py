@@ -3,7 +3,7 @@ from game.player import Player
 from game.game_models import BagTiles
 from game.dictionary import Dictionary, DictionaryConnectionError
 import sys
- 
+  
 class ScrabbleGame:
     def __init__(self, players_count: int):
         self.board = Board()
@@ -61,50 +61,57 @@ class ScrabbleGame:
 
 
     def end_game(self):
-        if len(self.player.rack)==0:
-            for player in self.players:
-                sys.exit()
+        if len(self.player.rack) == 0:
+            self.exit_game()
         else:
-            while True:
-                choice = input("¿Quieres terminar el juego? (Sí/No): ").strip().lower()
-                if choice == "si":
-                    for player in self.players:
-                        print(f"el jugador:{player.nickname} obtuvo {player.score} puntos")
-                    sys.exit()
-                elif choice == "no":
-                    return False
-                else:
-                    print("Por favor, ingresa 'Sí' o 'No'.")
-                
+            self.prompt_user()
+
+    def exit_game(self):
+        for player in self.players:
+            sys.exit()
+
+    def prompt_user(self):
+        while True:
+            choice = input("¿Quieres terminar el juego? (Sí/No): ").strip().lower()
+            if choice == "si":
+                self.print_player_scores()
+                sys.exit()
+            elif choice == "no":
+                return False
+            else:
+                print("Por favor, ingresa 'Sí' o 'No'.")
+
+    def print_player_scores(self):
+        for player in self.players:
+            print(f"El jugador {player.nickname} obtuvo {player.score} puntos.")
+            
         
     def validate_word(self, word, location, orientation):
-        if not self.can_form_word(word,location,orientation):
-            
-            return False
-        if not self.board.validate_word_place_board(word, location, orientation):
+        if not self.can_form_word(word, location, orientation):
+            result = False
+        elif not self.board.validate_word_place_board(word, location, orientation):
             print("La palabra no puede ser colocada en esa posición(si es la primer palabra a ingresar va en la posicion 7,7).")
-            return False
-        try:
-            if not self.dict.validate_dict(word):
-                print("La palabra no se encuentra en el diccionario.")
-                return False
-        except DictionaryConnectionError as e:
-            print(str(e)) 
-            return False
-        return True   
+            result = False
+        else:
+            try:
+                result = self.dict.validate_dict(word)
+                if not result:
+                    print("La palabra no se encuentra en el diccionario.")
+            except DictionaryConnectionError as e:
+                print(str(e))
+                result = False
+        return result
         
-    
-
-
     def obtener_posicion(self):
         while True:
             try:
-                y= int(input("Ingrese posicion X: "))
-                x = int(input("Ingrese posicion Y: "))
+                x = int(input("Ingrese la posición X: "))
+                y = int(input("Ingrese la posición Y: "))
+                
                 if 0 <= x <= 14 and 0 <= y <= 14:
-                    return x,y 
-                else:
-                    print("Posición incorrecta. Solo se permiten números del 0 al 14.")
+                    return x, y 
+                    
+                print("Posición incorrecta. Solo se permiten números del 0 al 14.")
             except ValueError:
                 print("Posición incorrecta. Solo se permiten números del 0 al 14.")
 

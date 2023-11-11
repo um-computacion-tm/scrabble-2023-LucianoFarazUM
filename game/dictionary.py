@@ -2,7 +2,7 @@ from pyrae import dle
 
 class DictionaryConnectionError(Exception):
     pass
-
+ 
 class Dictionary:
     dle.set_log_level(log_level='CRITICAL')
 
