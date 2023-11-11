@@ -6,16 +6,15 @@ class Player:
         self.rack = self.bag_tiles.take(7)  
         self.nickname = nickname
         
-
     def handle_wildcard(self, word_list, wildcard, new_letter, rack_copy):
-        for i in range(len(word_list)):
-            if word_list[i] == wildcard:
-                for j in range(len(rack_copy)):
-                    if rack_copy[j].letter == wildcard:
+        for i, letter in enumerate(word_list):
+            if letter == wildcard:
+                for tile in rack_copy:
+                    if tile.letter == wildcard:
                         word_list[i] = new_letter
-                        rack_copy[j].letter = new_letter
+                        tile.letter = new_letter
                         break
-    
+
     def set_wildcard(self, word):
         new_letter = input("Ingrese la letra del comodin: ")
         word_list = list(word)
@@ -34,7 +33,6 @@ class Player:
                 self.rack.remove(tile)
         self.fill_rack() 
 
-
     def set_nickname(self):
         self.nickname = input('Ingrese su nombre/apodo: ')
         
@@ -47,23 +45,19 @@ class Player:
         for tile in self.rack:
             letter = tile.letter
             player_letters[letter] = player_letters.get(letter, 0) + 1
-        try:
-            for letter in word:
-                if player_letters[letter] > 0:
-                    player_letters[letter] -= 1
-                else:
-                    raise KeyError(f"Falta la letra '{letter}' para formar la palabra '{word}'.")
-        except KeyError as e:
-            raise KeyError(e)
+        
+        for letter in word:
+            if player_letters.get(letter, 0) > 0:
+                player_letters[letter] -= 1
+            else:
+                raise KeyError(f"Falta la letra '{letter}' para formar la palabra '{word}'.")
         
         return True
+
     def fill_rack(self):
         new_tiles=self.bag_tiles.take(7-len(self.rack))
         self.rack+=new_tiles
 
-
-
-    
     def add_letters(self, letters):
         self.rack.extend(letters)
 

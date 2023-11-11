@@ -85,22 +85,24 @@ class ScrabbleGame:
         for player in self.players:
             print(f"El jugador {player.nickname} obtuvo {player.score} puntos.")
             
-        
     def validate_word(self, word, location, orientation):
         if not self.can_form_word(word, location, orientation):
-            result = False
-        elif not self.board.validate_word_place_board(word, location, orientation):
+            return False
+
+        if not self.board.validate_word_place_board(word, location, orientation):
             print("La palabra no puede ser colocada en esa posición(si es la primer palabra a ingresar va en la posicion 7,7).")
-            result = False
-        else:
-            try:
-                result = self.dict.validate_dict(word)
-                if not result:
-                    print("La palabra no se encuentra en el diccionario.")
-            except DictionaryConnectionError as e:
-                print(str(e))
-                result = False
-        return result
+            return False
+
+        try:
+            if not self.dict.validate_dict(word):
+                print("La palabra no se encuentra en el diccionario.")
+                return False
+        except DictionaryConnectionError as e:
+            print(str(e))
+            return False
+
+        return True
+
         
     def obtener_posicion(self):
         while True:
