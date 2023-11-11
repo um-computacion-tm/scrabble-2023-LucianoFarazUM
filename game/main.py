@@ -1,6 +1,6 @@
 from game.scrabble import ScrabbleGame
-import random
 
+import random
 
 def get_players_count_main():
     while True:
@@ -8,10 +8,9 @@ def get_players_count_main():
             players_count = int(input("Ingrese cantidad de jugadores (de 1 a 4): "))
             if 1 <= players_count <= 4:
                 return players_count
-            else:
-                raise ValueError
         except ValueError:
-            print("Error: Ingrese de 1 a 4 jugadores")
+            pass
+        print("Error: Ingrese un número válido de jugadores (de 1 a 4)")
 
 def setup_players(game):
     print("Cantidad de jugadores: ", len(game.players))
@@ -28,10 +27,50 @@ def print_menu():
     print('4. Cambiar fichas')
     print('5. Pasar turno')
     print('6. Terminar juego')
+def print_welcome_message():
+    print("Bienvenidos al Scrabble de Luciano!")
+
+def display_player_turn(player):
+    print(f"Turno del jugador {player.nickname}\n")
+    player.display_rack()
+    print('_' * 15)
+
+def print_menu():
+    print("1. Mostrar tablero")
+    print("2. Mostrar puntajes")
+    print("3. poner palabra")
+    print("4. Cambiar fichas")
+    print("5. Siguiente turno")
+    print("6. Finalizar juego")
+
+def handle_menu_option(option, scrabble_game, bag_tiles):
+    player = scrabble_game.players[scrabble_game.current_player]
+
+    if option == '1':
+        scrabble_game.show_board()
+    elif option == '2':
+        scrabble_game.show_score()
+    elif option == '3':
+        scrabble_game.play()
+    elif option == '4':
+        exchange_tiles(player, bag_tiles)
+    elif option == '5':
+        scrabble_game.next_turn()
+    elif option == '6':
+        scrabble_game.end_game()
+    else:
+        print("Opción inválida\n")
+
+def exchange_tiles(player, bag_tiles):
+    bag_tiles.put(player.rack)
+    random.shuffle(bag_tiles.bag)
+    player.rack = bag_tiles.take(len(player.rack))
+    rack_strings = [str(tile) for tile in player.rack]
+    print("Sus nuevas fichas son: " + ", ".join(rack_strings))
 
 def main():
-    print("Bienvenidos al scrabble de Luciano!")
-    
+    print_welcome_message()
+
     players_count = get_players_count_main()
     scrabble_game = ScrabbleGame(players_count=players_count)
     bag_tiles = scrabble_game.bag_tiles
@@ -40,35 +79,16 @@ def main():
 
     while True:
         player = scrabble_game.players[scrabble_game.current_player]
-        
+
         if len(player.rack) == 0:
             scrabble_game.end_game()
 
-        print(f"Turno del jugador {player.nickname}\n")
-        player.display_rack()
-        print('_' * 15)
-        
+        display_player_turn(player)
         print_menu()
         option = input("Ingrese una opción: ")
 
-        if option == '1':
-            scrabble_game.show_board()
-        elif option == '2':
-            scrabble_game.show_score()
-        elif option == '3':
-            scrabble_game.play()
-        elif option == '4':
-            bag_tiles.put(player.rack)
-            random.shuffle(bag_tiles.bag)
-            player.rack = bag_tiles.take(len(player.rack))
-            rack_strings = [str(tile) for tile in player.rack]
-            print("Sus nuevas fichas son: " + ", ".join(rack_strings))
-        elif option == '5':
-            scrabble_game.next_turn()
-        elif option == '6':
-            scrabble_game.end_game()
-        else:
-            print("Opción inválida\n")
+        handle_menu_option(option, scrabble_game, bag_tiles)
+
 if __name__ == '__main__':
         main()
 

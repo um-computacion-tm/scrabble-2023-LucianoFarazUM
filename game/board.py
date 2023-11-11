@@ -47,16 +47,15 @@ class Board:
    
     @staticmethod
     def calculate_word_value(word: List[Cell]) -> int:
-        value: int = 0
-        multiplier_word = None
-        for cell in word:
-            value += cell.calculate_value()
-            if cell.multiplier_type == "word":
-                multiplier_word = cell.multiplier if cell.active else 1
-                cell.active = False
+        value: int = sum(cell.calculate_value() for cell in word)
+        
+        multiplier_word = next((cell.multiplier for cell in word if cell.multiplier_type == "word" and cell.active), None)
+        
         if multiplier_word:
             value *= multiplier_word
+        
         return value
+
 
     def validate_word_horizontal(self, word, location):
         x, y = location
