@@ -165,11 +165,8 @@ class Board:
             letter_x, letter_y = letter_pos
             cell = self.grid[letter_x][letter_y]
             tile_object = cell.letter
-
-            if tile_object is not None:
-                if not self.match_tile_letter(tile_object, word, position_x, position_y, orientation, letter_x, letter_y):
-                    return False, self.player_tiles, self.hand_letters
-
+            if tile_object is not None and not self.match_tile_letter(tile_object, word, position_x, position_y, orientation, letter_x, letter_y):
+                return False, self.player_tiles, self.hand_letters
         return True, self.player_tiles, self.hand_letters
 
     def match_tile_letter(self, tile_object, word, position_x, position_y, orientation, letter_x, letter_y):
