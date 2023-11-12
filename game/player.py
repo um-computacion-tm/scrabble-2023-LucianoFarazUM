@@ -8,13 +8,10 @@ class Player:
 
     def handle_wildcard(self, word_list, wildcard, new_letter, rack_copy):
         for i, letter in enumerate(word_list):
-            if letter == wildcard:
-                matching_tiles = [tile for tile in rack_copy if tile.letter == wildcard]
-
-                if matching_tiles:
-                    word_list[i] = new_letter
-                    matching_tiles[0].letter = new_letter
-                    break
+            if letter == wildcard and (matching_tiles := [tile for tile in rack_copy if tile.letter == wildcard]):
+                word_list[i] = new_letter
+                matching_tiles[0].letter = new_letter
+                break
 
 
     def set_wildcard(self, word):
